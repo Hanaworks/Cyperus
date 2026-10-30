@@ -1,0 +1,46 @@
+# 依赖与构建产物
+node_modules/
+.pnpm-store/
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Rust / Tauri
+target/
+src/host/target/
+src/host/gen/
+src/host/icons/*.png.bak
+
+# 测试与覆盖率
+coverage/
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+
+# 基准生成物（脚本可重建，不提交）
+fixtures/generated/
+benchmarks/*.local.csv
+benchmarks/raw/
+
+# 工具与编辑器产物（非项目内容）
+.omo/
+.codegraph/
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# 本地覆盖
+.env
+.env.local
+.env.*.local
+*.local
+
+# 日志
+*.log
+npm-debug.log*
+pnpm-debug.log*

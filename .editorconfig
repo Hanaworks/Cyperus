@@ -1,0 +1,22 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.rs]
+indent_size = 4
+
+[*.md]
+# Markdown 里的行尾双空格是硬换行语法，不能被 trim
+trim_trailing_whitespace = false
+
+[*.{ps1,cmd,bat}]
+end_of_line = crlf
+
+[*.{png,jpg,jpeg,gif,webp,ico,icns,woff,woff2,ttf,wasm}]
+insert_final_newline = false
