@@ -1,0 +1,29 @@
+{
+  "name": "markdown-preview",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Preview-first 本地 Markdown 桌面阅读器",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "ui:dev": "pnpm --dir src/ui dev",
+    "ui:build": "pnpm --dir src/ui build",
+    "ui:typecheck": "pnpm --dir src/ui typecheck",
+    "ui:test": "pnpm --dir src/ui test",
+    "ui:test:watch": "pnpm --dir src/ui test:watch",
+    "app:dev": "cmd /c \"pnpm tauri dev\"",
+    "app:build": "cmd /c \"pnpm tauri build\"",
+    "fixtures:gen": "node src/bench/gen-fixtures.mjs",
+    "lint": "biome check --write .",
+    "lint:ci": "biome ci .",
+    "format": "biome format --write .",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.4",
+    "@playwright/test": "1.64.1",
+    "typescript": "5.9.3"
+  }
+}

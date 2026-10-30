@@ -31,11 +31,11 @@
 | Markdown Parser | `markdown-it` | `15.0.3`(内置 TS 声明,**不装 `@types/markdown-it`**) |
 | GFM 表格/删除线 | markdown-it 内置 | — |
 | 脚注 | `markdown-it-footnote` | `4.0.0` |
-| 标题锚点 | `markdown-it-anchor` + `github-slugger` | `10.0.0` / `2.0.0` |
+| 标题锚点 | **自研** `core/markdown/anchors.ts`(见 `findings-plugin-compat.md` §2.2) | — |
 | GitHub Alerts | `markdown-it-github-alerts` | `1.0.1` |
 | 任务列表 | **自研** `rules/taskList.ts` | — |
-| 数学公式 | `@vscode/markdown-it-katex` + `katex` | `1.1.2` / `0.19.1` |
-| 代码高亮 | `@shikijs/markdown-it` + `shiki` | `4.5.0` / `4.5.0` |
+| 数学公式 | `@vscode/markdown-it-katex` + `katex` | `1.1.2` / `0.16.47` |
+| 代码高亮 | `shiki`(自接管 fence 渲染,见 `findings-plugin-compat.md` §2.5) | `4.5.0` |
 | 图表 | `mermaid` | `12.2.0` |
 | HTML 消毒 | `dompurify` | `3.4.17` |
 | 标签栏拖拽 | **原生 HTML5 Drag & Drop** | — |

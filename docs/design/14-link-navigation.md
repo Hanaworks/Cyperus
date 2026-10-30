@@ -194,17 +194,42 @@ export function bindLinks(container: HTMLElement): () => void {
 
 ### 3.3 锚点跳转
 
+> **⚠️ 实测陷阱（T05，markdown-it@15.0.3）**
+>
+> markdown-it 会对 `href` 做 URL 规范化，**非 ASCII 字符被百分号编码**，而标题的
+> `id` 属性保持原文。例如：
+>
+> ```text
+> Markdown 源码：  [x](#3-本地-markdown-链接)
+> 渲染后 href：    #3-%E6%9C%AC%E5%9C%B0-markdown-%E9%93%BE%E6%8E%A5
+> 标题 id：        3-本地-markdown-链接          ← 未编码
+> ```
+>
+> 因此**绝不能**拿 `href` 直接去 `querySelector('#...')`，否则所有中文锚点都会失效。
+> 必须先 `decodeURIComponent` 再查找。这一点若不处理，中文文档的目录跳转会 100% 失效。
+
 ```ts
-export function scrollToAnchor(anchor: string, opts: { flash?: boolean } = {}) {
+export function scrollToAnchor(rawAnchor: string, opts: { flash?: boolean } = {}) {
   const root = readerEl()
+
+  // 1. 先解码：href 可能被 markdown-it 百分号编码
+  let anchor = rawAnchor
+  try {
+    anchor = decodeURIComponent(rawAnchor)
+  } catch {
+    /* 非法百分号序列，保留原文继续尝试 */
+  }
+
+  // 2. 按 id 查找（CSS.escape 必须用：中文/emoji/特殊字符不转义会抛异常）
   let el = root.querySelector(`#${CSS.escape(anchor)}`)
 
-  // 降级 1:URL 解码(#%E4%B8%AD)
-  if (!el) {
-    try { el = root.querySelector(`#${CSS.escape(decodeURIComponent(anchor))}`) } catch { /* ignore */ }
-  }
-  // 降级 2:按 name 属性(旧式锚点 <a name="x">)
+  // 3. 降级：按 name 属性（旧式锚点 <a name="x">）
   if (!el) el = root.querySelector(`a[name="${CSS.escape(anchor)}"]`)
+
+  // 4. 再降级：用原始未解码值（有些文档的 id 本身就是编码后的形式）
+  if (!el && anchor !== rawAnchor) {
+    el = root.querySelector(`#${CSS.escape(rawAnchor)}`)
+  }
 
   if (!el) {
     toastWarn(`文档中不存在锚点 #${anchor}`)
@@ -216,9 +241,23 @@ export function scrollToAnchor(anchor: string, opts: { flash?: boolean } = {}) {
 }
 ```
 
-- `CSS.escape` 必须使用:中文与特殊字符 id 不加转义会导致 `querySelector` 抛异常。
-- 跳转后给目标加 `.md-anchor-flash`,1.2 s 后移除(视觉反馈,避免"点了不知道跳哪了")。
-- 平滑滚动期间暂停 TOC 的自动高亮(`03` 类似的 300 ms 抑制窗口),避免两侧高亮跳动。
+- `CSS.escape` 必须使用：中文与特殊字符 id 不加转义会导致 `querySelector` 抛异常。
+- 跳转后给目标加 `.md-anchor-flash`，1.2 s 后移除（视觉反馈，避免"点了不知道跳哪了"）。
+- 平滑滚动期间暂停 TOC 的自动高亮（300 ms 抑制窗口），避免两侧高亮跳动。
+
+### 3.3.1 同一问题影响 Rust 侧 `resolve_link`
+
+`resolve_link` 收到的 `href` **已经是百分号编码形式**。因此 Rust 侧在判定
+"是锚点还是文件" 之前必须先做一次 `percent_decode`：
+
+```rust
+// 关键：先解码再判断，否则：
+//   "#%E4%B8%AD%E6%96%87"  会被当成合法锚点，但锚点名是编码串
+//   "./%E4%B8%AD%E6%96%87.md" 会被当成不存在（实际文件是 中文.md）
+let decoded = percent_encoding::percent_decode_str(s).decode_utf8_lossy();
+```
+
+具体见 §2.1 判定顺序的第 2 步与第 4 步（那里的 `percent_decode` 调用就是为此）。
 
 ### 3.4 跨文档锚点
 

@@ -44,3 +44,8 @@ Thumbs.db
 *.log
 npm-debug.log*
 pnpm-debug.log*
+
+# ²âÊÔÓë QA ²úÎï
+test-results/
+blob-report/
+artifacts/

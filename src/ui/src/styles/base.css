@@ -1,0 +1,55 @@
+:root {
+  --app-bg: #ffffff;
+  --app-bg-elevated: #f6f8fa;
+  --app-fg: #1f2328;
+  --app-fg-muted: #59636e;
+  --app-border: #d1d9e0;
+  --app-accent: #0969da;
+  --app-titlebar-h: 36px;
+  --app-tabs-h: 36px;
+  --app-sidebar-w: 260px;
+  --app-statusbar-h: 24px;
+  --app-font-ui:
+    system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+
+  color-scheme: light;
+}
+
+:root[data-app-theme='dark'] {
+  --app-bg: #0d1117;
+  --app-bg-elevated: #161b22;
+  --app-fg: #e6edf3;
+  --app-fg-muted: #8d96a0;
+  --app-border: #30363d;
+  --app-accent: #2f81f7;
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--app-font-ui);
+  font-size: 13px;
+  color: var(--app-fg);
+  background: var(--app-bg);
+  /* 桌面应用：禁用整页文本选择与拖拽导航 */
+  user-select: none;
+  overflow: hidden;
+}
+
+/* 正文区域例外：允许选择与复制 */
+.md-doc {
+  user-select: text;
+}

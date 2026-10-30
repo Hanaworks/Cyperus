@@ -39,22 +39,47 @@ text
 import MarkdownIt from 'markdown-it'
 
 export function createMarkdownIt(): MarkdownIt {
-  return new MarkdownIt('commonmark', {
-    html: true,          // 原始 HTML 放行,由 DOMPurify 按需消毒(见 ADR / 06)
+  // ⚠️ 必须用 'default' preset，不能用 'commonmark'。
+  // 实测（T05，markdown-it@15.0.3）：'commonmark' preset 的 block/inline 规则集
+  // 不包含 table、strikethrough，且会禁用 linkify —— 与 FR-003 要求的 GFM 能力冲突。
+  //   commonmark: table=false strike=false linkify=false rawhtml=true
+  //   default:    table=true  strike=true  linkify=true  rawhtml=true
+  // 我们需要的正是「default 的规则集 + 显式的 html/breaks/typographer 选项」。
+  return new MarkdownIt('default', {
+    html: true,          // 原始 HTML 放行，由 DOMPurify 按需消毒（见 06-security.md）
     xhtmlOut: false,
-    breaks: false,       // 不做「单换行=硬换行」,保持 CommonMark 语义
+    breaks: false,       // 不做「单换行=硬换行」，保持 CommonMark 换行语义
     langPrefix: 'language-',
-    linkify: true,
-    typographer: false,  // 关闭智能引号,避免破坏中文排版与代码片段
+    linkify: true,       // 依赖 'default' preset，'commonmark' 下此项无效
+    typographer: false,  // 关闭智能引号，避免破坏中文排版与代码片段
     quotes: '“”‘’',
     maxNesting: 100,
   })
 }
 ```
 
-**为什么 `typographer: false`**:智能引号会把 `'` `"` 替换成弯引号,在中文技术文档里会破坏代码片段与 CJK 标点混排;GitHub 本身也不做 typographer 替换。
+**为什么不是 `'commonmark'` presets**：`commonmark` 的组件规则表是**硬编码子集**，只启用 CommonMark 规范内的规则。它明确排除了表格与删除线（GFM 扩展），并且 `linkify` 选项在 `commonmark` 下不生效。若要 GFM，只能：
 
-**`breaks` 决策**:保持 `false`。需求文档 AC 未要求 Slack 式换行;若后续用户反馈强烈,作为设置项加入,而非改默认。
+- （选用）用 `'default'` preset —— 它包含 table / strikethrough / linkify 的规则；
+- 或手工 `md.enable(['table', 'strikethrough'])` 并自行管理规则集。
+
+选 `'default'` 的理由：规则表由 markdown-it 维护，不会因为我们漏 enable 某个规则而静默缺失；且实测其 CommonMark 核心行为一致。
+
+**CommonMark 纯合规性**：本项目不承诺"严格 CommonMark-only"，需求 FR-003 明确要求 GFM。用 `'default'` 是满足需求的最短路径。
+
+**为什么 `typographer: false`**：智能引号会把 `'` `"` 替换成弯引号，在中文技术文档里会破坏代码片段与 CJK 标点混排；GitHub 本身也不做 typographer 替换。
+
+**`breaks` 决策**：保持 `false`。需求文档 AC 未要求 Slack 式换行；若后续用户反馈强烈，作为设置项加入，而非改默认。
+
+### 2.1 附带实测数据（T05，2026-10-29）
+
+| preset | table | strikethrough | linkify | raw HTML |
+|---|---|---|---|---|
+| `commonmark` | ❌ | ❌ | ❌ | ✅ |
+| `default` | ✅ | ✅ | ✅ | ✅ |
+| `zero` | ❌ | ❌ | ❌ | ❌ |
+
+来源：`src/ui/tests/unit/plugin-compat.spec.ts` 的 `markdown-it 15 核心能力` 用例组。
 
 ---
 
@@ -71,32 +96,90 @@ md.use(await shikiPlugin({ themes: { light, dark } }))                     // 5.
 md.use(taskListPlugin)                 // 6. 自研任务列表
 ```
 
+**各包的导入形式（T05 实测，2026-10-29）**
+
+| 包 | 正确导入 | 备注 |
+|---|---|---|
+| `markdown-it-footnote` | `import footnote from 'markdown-it-footnote'` | default 导出 |
+| ~~`markdown-it-anchor`~~ | **不采用** | 见 §3.2（有状态 slugger 缺陷） |
+| `markdown-it-github-alerts` | `import githubAlerts from 'markdown-it-github-alerts'` | **只有 default 导出，没有 `full` 命名导出**（README 与包内容不一致，以 `dist/index.d.mts` 为准）；样式在 `markdown-it-github-alerts/styles/*` |
+| `@vscode/markdown-it-katex` | `import katexPlugin from '@vscode/markdown-it-katex'` | default 导出；需同时装 `katex` 并传 `{ katex }` |
+| `@shikijs/markdown-it` | `import Shiki from '@shikijs/markdown-it'` | default 导出，**异步工厂**：`await Shiki(opts)` |
+
 ### 3.2 各插件细节
 
 #### 脚注 — `markdown-it-footnote@4.0.0`
 
 - 产出 `<sup class="footnote-ref">` / `<section class="footnotes">`。
 - 需在 CSS 中提供 `.footnotes` 样式(Markdown Theme 内)。
-- 回链锚点依赖 `markdown-it-anchor` 的 id 规则,**两者 slugify 必须同源**。
+- 回链锚点使用 `footnote` 自带的 `fn1`/`fnref1` 命名，与标题锚点互不干扰。
 
-#### 锚点 — `markdown-it-anchor@10.0.0` + `github-slugger@2.0.0`
+#### 锚点 — **自研** `core/markdown/anchors.ts`
 
-```ts
-import GithubSlugger from 'github-slugger'
+**不使用 `markdown-it-anchor`。** 理由（T05 实测，详见 `findings-plugin-compat.md` §2.2）：
 
-function slugify(text: string): string {
-  // 每次渲染新建 slugger,保证同一文档内去重一致
-  return new GithubSlugger().slug(text)
-}
+它的 `slugify` 选项挂在 MarkdownIt **实例**上，而实例跨文档、跨渲染复用。
+若传入有状态 slugger（`github-slugger` 实例或返回闭包的工厂），计数永不重置：
+
+```text
+第一次渲染： id="重复标题", id="重复标题-1"
+第二次渲染： id="重复标题-2", id="重复标题-3"   ← 漂移
 ```
 
-- **CJK 支持必须验证**:`github-slugger` 保留 Unicode 字母,中文标题会生成中文 id。需在 `fixtures/cjk-typography.md` 中覆盖:
-  - 纯中文标题
-  - 中英混排标题
-  - 含标点/全角符号标题
-  - 重复标题(依赖 slugger 的 `-1`/`-2` 后缀)
-- 若 slugger 行为不符合预期,改用自研 slug:去空白 → 保留 `[\p{L}\p{N}_-]` → 小写 → 冲突加后缀。
+后果：目录跳转 100% 失效、切换标签后锚点漂移、视觉回归无故失败。
 
+**本项目的实现**（`src/ui/src/core/markdown/anchors.ts`）：
+
+```ts
+// 1. slugify 是无状态纯函数
+export function slugify(input: string): string {
+  return input
+    .trim()
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}_\s-]/gu, '')  // 先移除非法字符（保留空白）
+    .replace(/\s+/g, '-')                // 空白 → 连字符
+    .replace(/-{2,}/g, '-')              // 合并连续连字符
+    .replace(/^-+|-+$/g, '')             // 去首尾连字符
+}
+
+// 2. 去重计数存在「单次 parse() 的 env」里，不在模块或实例级
+md.core.ruler.after('inline', 'md_heading_anchors', (state) => {
+  const counts = getCounts(state.env)   // Map<string, number>，随 env 生命周期
+  for (let i = 0; i < state.tokens.length; i++) {
+    const token = state.tokens[i]
+    if (token.type !== 'heading_open') continue
+    const base = slugify(headingText(state.tokens[i + 1]))
+    const n = counts.get(base) ?? 0
+    counts.set(base, n + 1)
+    token.attrSet('id', n === 0 ? base : `${base}-${n}`)
+    token.attrSet('tabindex', '-1')
+  }
+})
+```
+
+**为什么这样能根治**：`env` 是 `md.render(src, env)` 的入参，每次渲染由调用方传入新的 `{}`。
+计数随 env 生灭，因此同一实例渲染任意次同一文档，产出完全一致。
+
+**必须遵守的调用约定**：`render()` 时**不要复用 env 对象**：
+
+```ts
+// 正确
+md.render(text, {})
+
+// 错误：复用一个 env 会让第二次渲染的 id 带上 -1 后缀
+const env = {}
+md.render(a, env)
+md.render(b, env)   // b 的标题会被 a 的计数污染
+```
+
+这一点由 `core/markdown/index.ts` 统一保证，调用方不直接接触 env。
+
+**CJK 支持已验证**（`fixtures/cjk-typography.md`）：
+- 纯中文标题 → `id="纯中文标题"`
+- 中英混排 → `id="中英混排标题-english-mixed-标题"`
+- 含全角标点 → `id="含标点的标题逗号句号顿号括号全角"`
+- emoji → `id="emoji-与符号-目标"`
+- 重复标题 → `重复标题`、`重复标题-1`、`重复标题-2`
 #### GitHub Alerts — `markdown-it-github-alerts@1.0.1`
 
 - 语法:`> [!NOTE]` / `[!TIP]` / `[!IMPORTANT]` / `[!WARNING]` / `[!CAUTION]`
@@ -129,8 +212,24 @@ md.use(await Shiki({
 
 - `defaultColor: false` 使代码 token 颜色变成 CSS 变量,**主题切换只改 CSS,不重解析**(FR-009 要求)。
 - `COMMON_LANGS` 首批 24 种:`bash, c, cpp, csharp, css, diff, go, html, ini, java, javascript, json, jsx, kotlin, lua, markdown, php, python, ruby, rust, shell, sql, toml, tsx, typescript, xml, yaml`。
-- 未预载语言:先以 `<pre><code>` 纯文本输出并记 `unknownLangs`,同时异步 `highlighter.loadLanguage(lang)`;下次渲染该语言即生效。
-- Shiki 高亮器是 **Worker 内长生命周期单例**,不得在渲染函数内反复创建。
+- **未知语言必须自己兜住**:实测(T05)`@shikijs/markdown-it@4.5.0` 在遇到 `langs` 白名单之外的语言时会抛
+  `ShikiError: Language 'xxx' not found`。因此必须在把源码交给 Shiki **之前**判断语言是否已加载:
+
+  ```ts
+  const isKnown = (lang: string) => highlighter.getLoadedLanguages().includes(lang as never)
+
+  md.options.highlight = (code, lang) => {
+    if (!lang || !isKnown(lang)) {
+      unknownLangs.add(lang || '(none)')
+      return ''            // 返回空串 → markdown-it 走默认 <pre><code> 纯文本渲染
+    }
+    return highlighter.codeToHtml(code, { lang, themes: { light, dark } })
+  }
+  ```
+
+  这比"捕获异常再降级"更可靠:异常发生在 Shiki 内部，包在 try/catch 里仍会污染渲染流程。
+- 未预载语言：先以 `<pre><code>` 纯文本输出并记 `unknownLangs`，同时异步 `highlighter.loadLanguage(lang)`；下次渲染该语言即生效。
+- Shiki 高亮器是 **Worker 内长生命周期单例**，不得在渲染函数内反复创建。
 
 #### 任务列表 — 自研 `rules/taskList.ts`
 
@@ -416,12 +515,24 @@ export const POLICY: DOMPurify.Config = {
 
 ---
 
-## 10. 待实测项(必须在 M0 关闭)
+## 10. 待实测项（已部分关闭）
+
+### 10.1 已关闭（T05，2026-10-29）
+
+| 项 | 结论 | 证据 |
+|---|---|---|
+| 第三方插件与 markdown-it@15 兼容性 | ✅ **全部可用**，无需回退 14.3.3 | `findings-plugin-compat.md` §1 |
+| 中文标题 id 稳定性 | ✅ 自研 anchors.ts 已解决，且无跨渲染漂移 | `markdown-core.spec.ts`「标题锚点 id 稳定性」 |
+| `commonmark` preset 的 GFM 能力 | ❌ 不支持 table/strike/linkify → 改用 `default` | `findings-plugin-compat.md` §2.6 |
+| Shiki 未知语言中断渲染 | ✅ 自接管 fence 渲染已解决 | `fixtures-render.spec.ts`「未知语言不中断」 |
+| katex 版本冲突 | ✅ 锁定 0.16.47 | `findings-plugin-compat.md` §2.4 |
+| 中文锚点百分号编码 | ✅ 已记录，前端需 decodeURIComponent | `14-link-navigation.md` §3.3 |
+
+### 10.2 仍待实测
 
 | 项 | 验证方式 | 失败时的退路 |
 |---|---|---|
-| `markdown-it-anchor@10` / `footnote@4` / `alerts@1` / `@shikijs/markdown-it@4.5` 与 `markdown-it@15` 兼容性 | 任务 6:逐个 `.use()` + 渲染夹具断言 | 锁定 `markdown-it@14.3.3` |
-| `github-slugger` 的中文 id 是否稳定、是否与页内链接匹配 | `fixtures/cjk-typography.md` golden 快照 | 换自研 slug |
-| KaTeX 输出是否能通过 DOMPurify 白名单 | `fixtures/extended.md` 公式区断言 `document.querySelectorAll('.katex').length > 0` | 扩充 `ALLOWED_ATTR` |
-| Shiki 双主题 CSS 变量在 WebView2 156 上正确 | 视觉回归截图 | 改为 `defaultColor` 单主题 + 重解析 |
-| Mermaid 12.2 在 WebView2 156 的渲染与 `securityLevel:'strict'` 行为 | 渲染 6 类图表 | 锁 `mermaid@11.x` |
+| KaTeX 输出能否通过 DOMPurify 白名单 | `fixtures/extended.md` 公式区断言 `.katex` 数量 > 0（T25） | 扩充 `ALLOWED_ATTR` |
+| Shiki 双主题 CSS 变量在 WebView2 156 正确 | 视觉回归截图（T32） | 改为单主题 + 重解析 |
+| Mermaid 12.2 在 WebView2 156 的渲染与 `securityLevel:'strict'` | 渲染 6 类图表（T11） | 锁 `mermaid@11.x` |
+| Shiki WASM 引擎是否需要 CSP `'wasm-unsafe-eval'` | T09 起 Tauri 后实测 | 改用 `createJavaScriptRegexEngine` |

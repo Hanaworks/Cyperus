@@ -1,0 +1,11 @@
+packages:
+  - 'src/ui'
+
+# pnpm 10+ 只允许白名单内的依赖执行构建脚本。
+# 这些包确实需要 postinstall / build 才能产出可执行文件或原生二进制。
+# 新增依赖若需要构建脚本，必须在此处显式加入并说明原因。
+onlyBuiltDependencies:
+  - esbuild          # Vite 的打包器，postinstall 下载平台二进制
+  - '@biomejs/biome' # 格式化器，postinstall 下载平台二进制
+  - '@tauri-apps/cli' # Tauri 命令行，postinstall 下载平台二进制
+  - playwright       # 浏览器驱动（T07 基准测试用）

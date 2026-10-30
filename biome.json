@@ -1,0 +1,105 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "master"
+  },
+  "files": {
+    "includes": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "src/**/*.vue",
+      "src/**/*.mjs",
+      "src/**/*.json",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/target",
+      "!**/coverage",
+      "!**/fixtures/generated",
+      "!**/src/host/gen",
+      "!**/tests/golden",
+      "!**/*.generated.ts"
+    ]
+  },
+  "formatter": {
+    "enabled": false
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all",
+      "arrowParentheses": "always"
+    }
+  },
+  "json": {
+    "formatter": {
+      "indentWidth": 2
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "complexity": {
+        "noExcessiveCognitiveComplexity": {
+          "level": "warn",
+          "options": { "maxAllowedComplexity": 20 }
+        }
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "useExhaustiveDependencies": "warn"
+      },
+      "suspicious": {
+        "noExplicitAny": "error",
+        "noConsole": {
+          "level": "warn",
+          "options": { "allow": ["warn", "error"] }
+        },
+        "noTemplateCurlyInString": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "warn",
+        "useConst": "error",
+        "useImportType": "error"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/ui/src/core/**", "src/ui/src/workers/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "vue": "core/** 与 workers/** 必须与框架无关，请通过 stores/ 或 app/ 使用 Vue（docs/design/00-architecture.md §3 规则 1、3）",
+                  "pinia": "core/** 与 workers/** 必须与框架无关，请通过 stores/ 使用 Pinia（docs/design/00-architecture.md §3 规则 1、3）",
+                  "@tauri-apps/api": "core/** 与 workers/** 不得直接依赖 Tauri，请通过 core/ipc/bridge.ts 注入（docs/design/00-architecture.md §3 规则 1、3）"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.test.ts", "**/*.spec.ts", "src/bench/**", "src/ui/tests/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off",
+            "noExplicitAny": "off"
+          }
+        }
+      }
+    }
+  ]
+}
