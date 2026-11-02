@@ -1,0 +1,54 @@
+[package]
+name = "md-preview"
+version = "0.1.0"
+description = "Preview-first 本地 Markdown 桌面阅读器"
+authors = ["Gkzix"]
+edition = "2021"
+rust-version = "1.90"
+license = "MIT OR Apache-2.0"
+publish = false
+
+# 二进制名与 tauri.conf.json 的 mainBinaryName 保持一致。
+# 不叫 main 是为了在任务管理器里可辨识。
+[[bin]]
+name = "md-preview"
+path = "src/main.rs"
+
+# 库目标存在的原因：Tauri 2 的移动端需要 lib 入口（#[cfg_attr(mobile, tauri::mobile_entry_point)]）。
+# 即使本项目只做桌面，保留 lib.rs 也是官方推荐结构，且便于单元测试直接引用 crate。
+[lib]
+name = "md_preview_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.7.4", features = [] }
+
+[dependencies]
+tauri = { version = "2.12.5", features = ["protocol-asset"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+thiserror = "2.0.21"
+uuid = { version = "1.29.0", features = ["v4", "serde"] }
+notify = "8.2.1"
+notify-debouncer-full = "0.7.0"
+chardetng = "1.0.0"
+encoding_rs = "0.8.42"
+dunce = "1.0.5"
+mime_guess = "2.0.5"
+percent-encoding = "2.3.2"
+parking_lot = "0.13.0"
+
+[features]
+# 默认启用自定义协议（生产构建用它加载前端资源）。
+default = ["custom-protocol"]
+# tauri/custom-protocol 让前端走 tauri:// 协议而不是 dev server。
+custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+# 刻意不设 panic = "abort"：
+# 命令边界需要 catch_unwind 把 panic 转成结构化错误，避免窗口假死。
+# 代价是二进制大约 +1MB。
+strip = true

@@ -49,3 +49,6 @@ pnpm-debug.log*
 test-results/
 blob-report/
 artifacts/
+
+# Tauri 构建缓存（gen/schemas 由 tauri 在构建时生成）
+src/host/gen/
