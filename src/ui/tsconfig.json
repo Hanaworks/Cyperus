@@ -4,6 +4,7 @@
     "jsx": "preserve",
     "types": ["vite/client", "node"],
     "paths": {
+      "vue": ["./node_modules/vue"],
       "@/*": ["./src/*"]
     }
   },

@@ -89,12 +89,15 @@ export function createMarkdownIt(): MarkdownIt {
 
 ```ts
 md.use(footnote)                       // 1. 脚注:先建立 footnote 引用解析
-md.use(anchor, { slugify, permalink }) // 2. 锚点:依赖 heading_open token
-md.use(githubAlerts)                   // 3. Alerts:blockquote 变换
-md.use(katexPlugin, { katex, throwOnError: false, errorColor: '#cc0000' }) // 4. 数学
-md.use(await shikiPlugin({ themes: { light, dark } }))                     // 5. 高亮
-md.use(taskListPlugin)                 // 6. 自研任务列表
+installHeadingAnchors(md)              // 2. 自研稳定锚点
+if (opts.alerts) md.use(githubAlerts)   // 3. Alerts:blockquote 变换
+if (opts.math) md.use(katexPlugin, { katex, throwOnError: false }) // 4. 数学
+installTaskList(md)                    // 5. 自研只读任务列表
+installHighlighter(md, highlightContext) // 6. 安全高亮与未知语言降级
+installAugmentRules(md, { mermaid: opts.mermaid }) // 7. 元数据与安全标记
 ```
+
+T06 的生产入口为 `await renderMarkdown(text, opts)`：等待复用的高亮器初始化后，同步完成单次解析和 HTML 输出，返回 `ParseResult`。`parseMs` 不包含高亮器初始化时间；Worker 消息调度在 T24 接入。
 
 **各包的导入形式（T05 实测，2026-10-29）**
 
@@ -142,37 +145,11 @@ export function slugify(input: string): string {
     .replace(/^-+|-+$/g, '')             // 去首尾连字符
 }
 
-// 2. 去重计数存在「单次 parse() 的 env」里，不在模块或实例级
-md.core.ruler.after('inline', 'md_heading_anchors', (state) => {
-  const counts = getCounts(state.env)   // Map<string, number>，随 env 生命周期
-  for (let i = 0; i < state.tokens.length; i++) {
-    const token = state.tokens[i]
-    if (token.type !== 'heading_open') continue
-    const base = slugify(headingText(state.tokens[i + 1]))
-    const n = counts.get(base) ?? 0
-    counts.set(base, n + 1)
-    token.attrSet('id', n === 0 ? base : `${base}-${n}`)
-    token.attrSet('tabindex', '-1')
-  }
-})
+// 2. 在每次 core rule 执行时收集标题并调用纯函数 dedupeIds(bases)。
+// 去重状态局限于本次调用，不保存在模块、解析器或 env 中。
 ```
 
-**为什么这样能根治**：`env` 是 `md.render(src, env)` 的入参，每次渲染由调用方传入新的 `{}`。
-计数随 env 生灭，因此同一实例渲染任意次同一文档，产出完全一致。
-
-**必须遵守的调用约定**：`render()` 时**不要复用 env 对象**：
-
-```ts
-// 正确
-md.render(text, {})
-
-// 错误：复用一个 env 会让第二次渲染的 id 带上 -1 后缀
-const env = {}
-md.render(a, env)
-md.render(b, env)   // b 的标题会被 a 的计数污染
-```
-
-这一点由 `core/markdown/index.ts` 统一保证，调用方不直接接触 env。
+同一文档重复解析的 id 保持一致，即使调用方复用 env 也不会漂移。去重同时防止自然标题和自动后缀相撞，例如 `foo / foo / foo-1`；纯标点标题使用 `section` 基础 id。统一入口仍为每次渲染新建 env，使元数据保持独立。
 
 **CJK 支持已验证**（`fixtures/cjk-typography.md`）：
 - 纯中文标题 → `id="纯中文标题"`
@@ -186,7 +163,7 @@ md.render(b, env)   // b 的标题会被 a 的计数污染
 - 输出容器带 `markdown-alert markdown-alert-<type>` 类。
 - 需随包引入其 `styles/*` 并在 Markdown Theme 中做深浅色适配。
 
-#### 数学 — `@vscode/markdown-it-katex@1.1.2` + `katex@0.19.1`
+#### 数学 — `@vscode/markdown-it-katex@1.1.2` + `katex@0.16.47`
 
 ```ts
 md.use(katexPlugin, { katex, throwOnError: false, errorColor: '#cc0000' })
@@ -235,10 +212,10 @@ md.use(await Shiki({
 
 不引入 `markdown-it-task-lists@2.1.1`(2022-06 后无维护)。自研规则要点:
 
-1. 在 `block` ruler 的 `list` 之后插入规则,遍历 `list_item_open` 后面的第一个 `inline` token。
-2. 匹配行首 `[ ]` / `[x]` / `[X]`(后接空白),剥离这 3~4 个字符并重写 `token.content`。
-3. 给 `list_item_open` 加 `class="task-list-item"`,给父 `bullet_list_open` 加 `class="contains-task-list"`。
-4. 在该 inline token 前插入一个 `html_inline` token:`<input type="checkbox" class="task-list-checkbox" disabled checked?>`。
+1. 在 core ruler 的 `inline` 之后注册规则，只识别 `list_item_open` 紧随首段的 `inline`。
+2. 匹配行首 `[ ]` / `[x]` / `[X]`(后接空白)，移除前缀并保留已解析的行内 token，避免重复登记脚注。
+3. 给 `list_item_open` 加 `class="task-list-item"`，给直接父级无序或有序列表加 `class="contains-task-list"`。
+4. 在 inline children 起始插入专用 `md_task_checkbox` token，由 renderer 生成 `<input type="checkbox" class="task-list-checkbox" disabled checked?>`。不使用 `html_inline`，避免把内部控件误计为作者 HTML。
    - **必须 `disabled`**:首版只读,不做写回(NFR-008 非破坏性)。
    - 用 `aria-checked` 承载状态,便于样式与无障碍。
 5. 单测覆盖:嵌套任务列表、任务列表内含强调、任务列表内 `[ ]` 出现在第二行时不应误判。
@@ -258,7 +235,9 @@ md.core.ruler.push('augment_blocks', (state) => {
   for (const token of state.tokens) {
     if (token.level !== 0) continue
     if (!token.map) continue
-    if (!token.nesting) continue           // 只要 open token
+    if (token.hidden) continue
+    const atomic = ['fence', 'code_block', 'hr', 'math_block'].includes(token.type)
+    if (token.nesting !== 1 && !atomic) continue
     token.attrSet('data-src-line', String(token.map[0] + 1))  // 1-based
     if (token.map[1] != null) {
       token.attrSet('data-src-end', String(token.map[1]))
@@ -271,24 +250,28 @@ md.core.ruler.push('augment_blocks', (state) => {
 - 仅标注 `level === 0` 的顶层块,避免 DOM 爆炸。
 - 行号 = `token.map[0] + 1`(markdown-it 的 map 是 0-based)。
 - `blocks[]` 提取时复用同一份数据,不二次扫描 DOM。
+- fence/缩进代码块映射为外层 `pre`，块公式映射为实际的 `p.katex-block`；这些插件 renderer 必须把源码行属性写在真实外层元素上。
 
 ### 4.2 `augment_mermaid` — 图表占位
 
 ```ts
 md.core.ruler.push('augment_mermaid', (state) => {
+  let number = 0
   for (const token of state.tokens) {
     if (token.type !== 'fence') continue
     const info = (token.info || '').trim().split(/\s+/)[0]
     if (info !== 'mermaid') continue
-    token.type = 'html_block'
-    token.content =
-      `<div class="md-mermaid" data-mermaid-id="${id}" ` +
-      `data-src-line="${token.map?.[0] ?? 0}" ` +
-      `data-code="${escapeAttr(toBase64(token.content))}"></div>`
+    token.type = 'md_mermaid'
+    token.tag = 'div'
+    token.attrJoin('class', 'md-mermaid')
+    token.attrSet('data-mermaid-id', `md-mermaid-${++number}`)
+    token.attrSet('data-code', toBase64Utf8(token.content))
   }
 })
 ```
 
+- 使用专用 renderer 输出占位 `div`，不伪装为作者 `html_block`。关闭 Mermaid 时保留转义后的代码块。
+- 顶层图表沿用 §4.1 的 1-based 源码行；嵌套图表由父级块承载定位标记。
 - **解析期绝不渲染图表**:Mermaid 需 DOM 且开销大,必须延后到主线程 IntersectionObserver。
 - 源码用 base64 放在 `data-code`,避免 HTML 属性转义地狱,也便于错误占位时还原源码展示。
 - `mermaidCount` 累加进 `ParseResult`,用于调度决策(100 图表场景,NFR-002)。
@@ -301,18 +284,7 @@ md.core.ruler.push('augment_mermaid', (state) => {
 
 ### 4.4 `augment_external_link`
 
-```ts
-md.core.ruler.push('augment_external_link', (state) => {
-  for (const token of state.tokens) {
-    if (token.type !== 'link_open') continue
-    const href = token.attrGet('href') ?? ''
-    if (/^https?:\/\//i.test(href) || /^mailto:/i.test(href)) {
-      token.attrSet('rel', 'noopener noreferrer')
-      token.attrSet('data-md-external', '1')
-    }
-  }
-})
-```
+递归遍历 `state.tokens` 及其 `children`，对 `link_open` 的 `http:` / `https:` / `mailto:` 链接设置 `rel="noopener noreferrer"` 和 `data-md-external="1"`。只遍历顶层 token 无法覆盖正文内的链接。
 
 点击一律在主线程被委托拦截(见 `04-assets-and-links.md`),这里的属性只用于样式与调试。
 
@@ -403,14 +375,7 @@ export type ParseResponse = ParseResult | ParseFailure
 | TOC / blocks 提取 | 图片解码 |
 | `hasRawHtml` 判定 | 滚动/搜索索引 |
 
-`hasRawHtml` 的判定:
-
-```ts
-const hasRawHtml = md.parse(text, env).some(
-  t => t.type === 'html_block' || t.type === 'html_inline'
-)
-```
-为避免重复解析,实际实现放在 `core.ruler` 的最后一个规则里累加到 `state.env.hasRawHtml`,一次遍历完成。
+`hasRawHtml` 在增强规则的第一步递归检查作者 `html_block` / `html_inline`，无需再次解析。任务列表和 Mermaid 使用内部 token，不触发该标记；Alerts 提取到 `meta.title` 的作者 HTML 也必须检查。关闭原始 HTML 时，Alert 自定义标题转义为文本；开启时，含 HTML 的标题要求消毒。所有统计每次 parse 重置。
 
 ---
 

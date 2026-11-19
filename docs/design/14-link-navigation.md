@@ -1,8 +1,10 @@
 # 14 — 链接点击跳转
 
 > 覆盖 **FR-019(P0)**、FR-006、UC-06、AC-03 / AC-13 / AC-14 / AC-15。
-> 代码落点:`src/ui/src/reader/bindLinks.ts`、`src/ui/src/core/documents/linkResolver.ts`、`src/host/src/commands/links.rs`、`src/host/src/security/url_policy.rs`。
+> 当前代码落点:`src/ui/src/reader/links.ts`、`ReaderView.vue`、`core/documents/session.ts`、`src/host/src/links.rs`、`commands.rs`。
 > 需求细则见需求文档 §3.4。资源解析(图片/附件路径校验)见 `04-assets-and-links.md`,本文专注**点击后的跳转行为与 UI 反馈**。
+
+2026-11-07 实现状态：宿主五类判定及二次校验接入真实命令；阅读区委托普通点击 / Ctrl 或 Meta / 中键，支持当前和跨文档中文锚点、路径去重、后台打开、缺失文件与越界提示，失败的新文档不留空标签。外链限 http / https / mailto，附件限 png / jpg / jpeg / gif / webp / svg / pdf / txt；相对路径以来源文档目录为边界。前端分发、宿主路径边界和原生分类通过验证，自动测试未实际启动外部程序。`name` 锚点降级、闪烁反馈、悬停目标提示与分段跳转仍为后续规格，见 [阅读流程完整性记录](../dev/reader-completion-plan.md)。
 
 ---
 

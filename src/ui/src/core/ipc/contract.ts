@@ -40,6 +40,8 @@ export type ResolvedLink =
 
 // 诊断面板所需的环境信息。
 export interface EnvInfo {
+  buildRevision?: string
+  buildTime?: string
   appVersion: string
   tauriVersion: string
   rustVersion: string

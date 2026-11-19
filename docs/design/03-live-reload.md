@@ -1,7 +1,11 @@
 # 03 — Live Reload(外部修改实时刷新)
 
 > 覆盖 FR-008 / FR-011 / 需求文档 §3.3 全部 8 条细则 / NFR-004 / NFR-005。
-> 代码落点:`src/host/src/watcher/**`、`src/ui/src/core/documents/reload.ts`、`src/ui/src/core/render/jobQueue.ts`。
+> 当前代码落点:`src/host/src/watcher.rs`、`documents.rs`、`lib.rs`、`src/ui/src/core/documents/session.ts`、`src/ui/src/App.vue`；下文独立模块结构为后续拆分设计。
+
+2026-11-07 实现状态：已接入父目录非递归监听、120 ms 去抖、单调版本、20 / 40 / 80 ms 有界读取重试和前端代次守卫。活动标签自动刷新，后台标签在激活时刷新；删除或读取失败保留旧正文，重建恢复，F5 可手动重试，窗口重新获得焦点时核对活动文件。读取前后比较元数据，避免把不稳定内容提交为新版本。发布程序已验证真实覆写 / 替换 / 删除 / 重建，见 [阅读流程完整性记录](../dev/reader-completion-plan.md)。
+
+当前保留像素阅读位置和搜索状态；下文语义锚点、统一队列预算及连续保存压力验收仍未完成。后文未特别更新的参数与模块拆分属于目标规格，以本段当前实测和代码为准。
 
 ---
 

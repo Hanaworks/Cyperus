@@ -1,0 +1,2 @@
+timestamp_utc,renderer,scenario,fixture,fixture_bytes,run,status,mode,python_version,pyside_version,qt_version,startup_ms,first_screen_ms,read_ms,render_ms,toc_ms,rss_bytes,peak_rss_bytes,process_tree_rss_bytes,cpu_ms,cpu_mean_percent,memory_scope,cpu_scope,heading_count,document_blocks,notes
+2026-11-04T07:27:21+00:00,qt-qtextdocument,open,D:\Project\Markdown\fixtures\basic.md,2565,1,blocked,window,3.14.6,,,,,,,,,,,,,worker_process,worker_total_through_first_frame,,,Qt dependency unavailable: No module named 'PySide6'

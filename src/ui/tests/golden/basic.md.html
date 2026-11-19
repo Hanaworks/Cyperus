@@ -1,0 +1,98 @@
+<h1 id="基础语法测试样本" tabindex="-1" data-src-line="1" data-src-end="1">基础语法测试样本</h1>
+<p data-src-line="3" data-src-end="3">本文件覆盖 CommonMark 基础语法，用于验证渲染器的核心正确性。</p>
+<h2 id="标题层级" tabindex="-1" data-src-line="5" data-src-end="5">标题层级</h2>
+<h3 id="三级标题" tabindex="-1" data-src-line="7" data-src-end="7">三级标题</h3>
+<h4 id="四级标题" tabindex="-1" data-src-line="9" data-src-end="9">四级标题</h4>
+<h5 id="五级标题" tabindex="-1" data-src-line="11" data-src-end="11">五级标题</h5>
+<h6 id="六级标题" tabindex="-1" data-src-line="13" data-src-end="13">六级标题</h6>
+<h2 id="段落与强调" tabindex="-1" data-src-line="15" data-src-end="15">段落与强调</h2>
+<p data-src-line="17" data-src-end="17">这是一个普通段落。其中包含 <strong>粗体文本</strong>、<em>斜体文本</em>、<em><strong>粗斜体</strong></em>、<s>删除线</s>，以及 <code>行内代码</code>。</p>
+<p data-src-line="19" data-src-end="19">第二段用于验证段落间距。这里测试 <strong>中文粗体</strong>、<em>中文斜体</em>，以及中英文混排 bold <strong>mixed 中英</strong> text。</p>
+<h2 id="换行与分隔" tabindex="-1" data-src-line="21" data-src-end="21">换行与分隔</h2>
+<p data-src-line="23" data-src-end="24">第一行<br>
+这是硬换行后的第二行（行尾两个空格）。</p>
+<p data-src-line="26" data-src-end="27">这是软换行
+在同一段落内的下一行。</p>
+<hr data-src-line="29" data-src-end="29">
+<h2 id="无序列表" tabindex="-1" data-src-line="31" data-src-end="31">无序列表</h2>
+<ul data-src-line="33" data-src-end="39">
+<li>第一项</li>
+<li>第二项
+<ul>
+<li>嵌套项 A</li>
+<li>嵌套项 B
+<ul>
+<li>三层嵌套</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三项</li>
+</ul>
+<h2 id="有序列表" tabindex="-1" data-src-line="40" data-src-end="40">有序列表</h2>
+<ol data-src-line="42" data-src-end="47">
+<li>第一步</li>
+<li>第二步
+<ol>
+<li>子步骤一</li>
+<li>子步骤二</li>
+</ol>
+</li>
+<li>第三步</li>
+</ol>
+<h2 id="引用" tabindex="-1" data-src-line="48" data-src-end="48">引用</h2>
+<blockquote data-src-line="50" data-src-end="52">
+<p>这是一段引用。</p>
+<p>引用中的第二段，包含 <strong>强调</strong>。</p>
+</blockquote>
+<blockquote data-src-line="54" data-src-end="56">
+<p>嵌套引用测试：</p>
+<blockquote>
+<p>第二层引用内容。</p>
+</blockquote>
+</blockquote>
+<h2 id="代码" tabindex="-1" data-src-line="58" data-src-end="58">代码</h2>
+<p data-src-line="60" data-src-end="60">行内代码：<code>const x = 1</code>、<code>npm run build</code>、<code>C:\path\to\file</code>。</p>
+<p data-src-line="62" data-src-end="62">缩进代码块：</p>
+<pre data-src-line="64" data-src-end="66"><code>function indented() {
+  return 42
+}
+</code></pre>
+<h2 id="链接" tabindex="-1" data-src-line="68" data-src-end="68">链接</h2>
+<ul data-src-line="70" data-src-end="74">
+<li><a href="https://example.com" rel="noopener noreferrer" data-md-external="1">行内链接</a></li>
+<li><a href="https://example.com" title="示例标题" rel="noopener noreferrer" data-md-external="1">带标题的链接</a></li>
+<li><a href="https://autolink.example.com" rel="noopener noreferrer" data-md-external="1">https://autolink.example.com</a></li>
+<li>引用式链接：<a href="https://example.com/ref" title="引用式链接" rel="noopener noreferrer" data-md-external="1">示例</a></li>
+</ul>
+<h2 id="图片" tabindex="-1" data-src-line="77" data-src-end="77">图片</h2>
+<p data-src-line="79" data-src-end="79"><img src="./resources/sample.png" alt="本地图片" loading="lazy" decoding="async" data-md-image="1"></p>
+<p data-src-line="81" data-src-end="81"><img src="./resources/sample.png" alt="带标题的图片" title="图片标题" loading="lazy" decoding="async" data-md-image="1"></p>
+<h2 id="转义与特殊字符" tabindex="-1" data-src-line="83" data-src-end="83">转义与特殊字符</h2>
+<p data-src-line="85" data-src-end="85">*不是斜体*、`不是代码`、\反斜杠。</p>
+<p data-src-line="87" data-src-end="87">HTML 实体：&amp; &lt; &gt; &quot; ©  </p>
+<p data-src-line="89" data-src-end="89">数学符号：± × ÷ ≈ ≠ ≤ ≥ ∞</p>
+<h2 id="长段落验证自动换行" tabindex="-1" data-src-line="91" data-src-end="91">长段落（验证自动换行）</h2>
+<p data-src-line="93" data-src-end="93">这是一段较长的文本，用于验证渲染器在窗口宽度变化时的自动换行行为。中文文本应当按字符边界换行，而英文单词应当在词边界处换行。混合内容如 supercalifragilisticexpialidocious 这样的超长英文单词，以及在中文语境中夹杂 English words 的情况，都应当正确处理。此外还需要验证标点符号的换行规则——中文标点不应出现在行首，英文标点不应孤立在行尾。这段文本特意写得足够长，以便在多行显示时能够观察到完整的换行效果。</p>
+<h2 id="嵌套结构" tabindex="-1" data-src-line="95" data-src-end="95">嵌套结构</h2>
+<blockquote data-src-line="97" data-src-end="106">
+<p>引用中包含列表：</p>
+<ol>
+<li>引用里的有序项</li>
+<li>第二项</li>
+</ol>
+<p>以及代码：</p>
+<pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">console.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">log</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">'in quote'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"></span></code></pre>
+</blockquote>
+<ul data-src-line="108" data-src-end="114">
+<li>列表中包含引用：
+<blockquote>
+<p>这是列表项内的引用。</p>
+</blockquote>
+</li>
+<li>列表中包含代码：<pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">def</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> hello</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">():</span></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">    print</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"hi"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"></span></code></pre>
+</li>
+</ul>

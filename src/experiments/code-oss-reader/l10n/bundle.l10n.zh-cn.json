@@ -1,0 +1,23 @@
+{
+  "Save changes and return to preview?": "保存修改后返回预览？",
+  "The preview shows the last saved contents. Cancel to continue editing.": "预览显示文件已保存的内容。取消将继续编辑。",
+  "Save and Preview": "保存并预览",
+  "Choose another application…": "选择其他应用…",
+  "Open Terminal Here": "在此目录打开终端",
+  "Open With": "打开方式",
+  "Choose an application to open the current file": "选择应用打开当前文件",
+  "Choose an External Application": "选择外部应用",
+  "Application": "应用",
+  "The previously selected application is unavailable. Please choose another.": "原来的外部应用已不可用，请重新选择。",
+  "Save changes before opening in the external application?": "保存修改后在外部应用打开？",
+  "Save and Open": "保存并打开",
+  "Find in the current preview": "在当前文档正文中查找",
+  "Type to search. Clear the text to remove highlighting.": "输入文字，Enter 开始查找；清空可取消高亮。",
+  "Light": "浅色",
+  "Dark": "深色",
+  "Paper": "纸张",
+  "Reading theme": "正文主题",
+  "Go to heading": "跳转",
+  "Open this link in the system application?": "使用系统程序打开此链接？",
+  "Open": "打开"
+}

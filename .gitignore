@@ -52,3 +52,8 @@ artifacts/
 
 # Tauri 构建缓存（gen/schemas 由 tauri 在构建时生成）
 src/host/gen/
+
+# Keep benchmark reports, exclude generated browser profiles and local snapshots.
+benchmarks/**/webview/
+benchmarks/**/*.bak
+benchmarks/*.local.json

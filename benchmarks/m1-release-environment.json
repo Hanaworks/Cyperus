@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-06T18:50:30.8026955Z",
+  "executableSha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+  "environment": {
+    "appVersion": "0.1.0",
+    "buildRevision": "fa78a1876df6-dirty",
+    "buildTime": "1793990327039",
+    "locale": "C.UTF-8",
+    "os": "windows",
+    "osVersion": "Windows",
+    "rustVersion": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "tauriVersion": "2.12.5",
+    "webviewVersion": "156.0.4314.58"
+  },
+  "windowsVersion": "10.0.26300",
+  "logicalProcessors": 16,
+  "cpu": "AMD Ryzen 7 8845HS w/ Radeon 780M Graphics     ",
+  "memoryMiB": 15659.0,
+  "fixtures": [
+    {
+      "name": "100kb.md",
+      "bytes": 103414,
+      "sha256": "ADDA7129ED06EAD8AA3C1443299BE453691F6EC6B99CD6CF457A96C01AFC539D"
+    },
+    {
+      "name": "1mb.md",
+      "bytes": 1049596,
+      "sha256": "8F730601898B587B6461E8D0A2585D95E1113F353065DAAC3F62E130D3F0CA47"
+    },
+    {
+      "name": "10mb.md",
+      "bytes": 10486765,
+      "sha256": "605822B46BCD3ADC14BC1DF998FC2D7F4E10F0F363638E9076AB0F24765882D7"
+    },
+    {
+      "name": "50mb.md",
+      "bytes": 52429974,
+      "sha256": "0E3E5F54CB6DC6F537F6F6798C3BD2943021B5F88E10E0928EDCB956EC93CECC"
+    }
+  ],
+  "notes": "Local desktop release. Each size/round uses a fresh isolated profile; first open followed by close/reopen. No explicit GC. Process-tree samples include summed working sets, not unique private memory."
+}

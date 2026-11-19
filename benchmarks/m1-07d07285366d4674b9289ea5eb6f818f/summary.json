@@ -1,0 +1,101 @@
+{
+  "date": "2026-11-06T18:47:07.2011336Z",
+  "profile": "D:\\Project\\Markdown\\benchmarks\\m1-07d07285366d4674b9289ea5eb6f818f",
+  "executable_sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+  "coldProcessToFirstReadableMs": 7512.9755,
+  "processTreePeakMiB": 2636.421875,
+  "performanceNotes": "cold/warm denote first open/reopen per fixture; only first fixture has cold Worker. New profile, no forced GC. RSS=sum working sets, sampled after process launch; may miss early/short peaks. Full render traverses segments, not simultaneous DOM residency.",
+  "performance": {
+    "complete": true,
+    "date": "2026-11-06T18:47:08.391Z",
+    "environment": {
+      "appVersion": "0.1.0",
+      "buildRevision": "fa78a1876df6-dirty",
+      "buildTime": "1793990327039",
+      "locale": "C.UTF-8",
+      "os": "windows",
+      "osVersion": "Windows",
+      "rustVersion": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+      "tauriVersion": "2.12.5",
+      "webviewVersion": "156.0.4314.58"
+    },
+    "errors": [],
+    "firstReadableAt": "2026-11-06T18:47:14.729Z",
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 0,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 0,
+          "storedHtmlBytes": 79833673
+        },
+        "completedAt": "2026-11-06T18:47:40.559Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 4487,
+          "visitedSegments": 4487
+        },
+        "firstReadableAt": "2026-11-06T18:47:14.729Z",
+        "firstReadableMs": 6336,
+        "fullRenderMs": 32166.30000007153,
+        "fullTraversalMs": 25830.30000007153,
+        "htmlBytes": 79833673,
+        "mountedElements": 4912,
+        "openedAt": "2026-11-06T18:47:08.393Z",
+        "parseMs": 3969.8000000715256,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md",
+        "scrollRafP95Ms": 47.29999995231629,
+        "segments": 4487,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 0,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 0,
+          "storedHtmlBytes": 79833673
+        },
+        "completedAt": "2026-11-06T18:48:14.166Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 4487,
+          "visitedSegments": 4487
+        },
+        "firstReadableAt": "2026-11-06T18:47:47.91Z",
+        "firstReadableMs": 5829,
+        "fullRenderMs": 32084.700000047684,
+        "fullTraversalMs": 26255.700000047684,
+        "htmlBytes": 79833673,
+        "mountedElements": 4912,
+        "openedAt": "2026-11-06T18:47:42.081Z",
+        "parseMs": 3632.799999952316,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md",
+        "scrollRafP95Ms": 45.699999928474426,
+        "segments": 4487,
+        "temperature": "warm"
+      }
+    ],
+    "mode": "performance",
+    "stage": "idle-ready",
+    "viewport": {
+      "height": 800,
+      "scale": 1,
+      "width": 1100
+    }
+  },
+  "complete": true
+}

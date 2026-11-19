@@ -1,0 +1,12 @@
+html, body, #app { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+body { background: var(--vscode-editor-background, #fff); color: var(--vscode-editor-foreground, #34343d); }
+#app { display: flex; flex-direction: column; }
+* { box-sizing: border-box; }
+.reader-scroll { min-height: 0; flex: 1; overflow: auto; outline: none; scrollbar-color: var(--vscode-scrollbarSlider-background) transparent; }
+.reader-error { padding: 8px 20px; color: var(--vscode-errorForeground); border-bottom: 1px solid var(--vscode-widget-border); }
+.reader-loading { padding: 24px; color: var(--vscode-descriptionForeground); }
+.md-doc { min-height: 100%; }
+.md-search-match { background: #ffdc7a; color: #302914; }
+.md-search-current { background: #eeb545; outline: 1px solid #a67110; }
+::highlight(md-reader-search) { background: #ffdc7a; color: #302914; }
+::highlight(md-reader-search-current) { background: #eeb545; color: #302914; }

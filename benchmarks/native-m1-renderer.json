@@ -1,0 +1,330 @@
+{
+  "complete": true,
+  "date": "2026-11-06T18:40:59.709Z",
+  "env": {
+    "appVersion": "0.1.0",
+    "buildRevision": "fa78a1876df6-dirty",
+    "buildTime": "1793990327039",
+    "locale": "C.UTF-8",
+    "os": "windows",
+    "osVersion": "Windows",
+    "rustVersion": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "tauriVersion": "2.12.5",
+    "webviewVersion": "156.0.4314.58"
+  },
+  "errors": [],
+  "fixtures": [
+    {
+      "cache": {
+        "activeHtmlBytes": 6829,
+        "backgroundHtmlBytes": 0,
+        "budgetBytes": 50331648,
+        "overBudgetBytes": 0,
+        "retainedHtmlBytes": 6829,
+        "storedHtmlBytes": 0
+      },
+      "hasMath": false,
+      "hasShiki": true,
+      "headings": 17,
+      "images": [
+        {
+          "alt": "本地图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        },
+        {
+          "alt": "带标题的图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        }
+      ],
+      "imagesLoaded": 2,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "mermaidPending": 0,
+      "name": "basic.md",
+      "parseCount": 1,
+      "parseMs": 52,
+      "segments": 0,
+      "themeDidNotParse": true,
+      "totalSegments": 1,
+      "visitedSegments": 1
+    },
+    {
+      "cache": {
+        "activeHtmlBytes": 40637,
+        "backgroundHtmlBytes": 6829,
+        "budgetBytes": 50331648,
+        "overBudgetBytes": 0,
+        "retainedHtmlBytes": 47466,
+        "storedHtmlBytes": 0
+      },
+      "hasMath": true,
+      "hasShiki": true,
+      "headings": 13,
+      "images": [
+        {
+          "alt": "示例图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        },
+        {
+          "alt": "带标题图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        },
+        {
+          "alt": "子目录图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csub%5Cnested.png",
+          "width": 100
+        },
+        {
+          "alt": "中文名",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5C%E4%B8%AD%E6%96%87%E5%9B%BE%E7%89%87.png",
+          "width": 160
+        },
+        {
+          "alt": "不存在的图（资源不可用）",
+          "src": null,
+          "width": 0
+        },
+        {
+          "alt": "越界图（资源不可用）",
+          "src": null,
+          "width": 0
+        },
+        {
+          "alt": "损坏图（无法显示）",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Cbroken.png",
+          "width": 0
+        }
+      ],
+      "imagesLoaded": 4,
+      "mermaidDone": 4,
+      "mermaidErrors": 1,
+      "mermaidPending": 0,
+      "name": "extended.md",
+      "parseCount": 2,
+      "parseMs": 142.10000002384186,
+      "segments": 0,
+      "themeDidNotParse": true,
+      "totalSegments": 1,
+      "visitedSegments": 1
+    },
+    {
+      "cache": {
+        "activeHtmlBytes": 14400,
+        "backgroundHtmlBytes": 47466,
+        "budgetBytes": 50331648,
+        "overBudgetBytes": 0,
+        "retainedHtmlBytes": 61866,
+        "storedHtmlBytes": 0
+      },
+      "hasMath": true,
+      "hasShiki": true,
+      "headings": 20,
+      "images": [
+        {
+          "alt": "小图",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        }
+      ],
+      "imagesLoaded": 1,
+      "mermaidDone": 1,
+      "mermaidErrors": 0,
+      "mermaidPending": 0,
+      "name": "theme.md",
+      "parseCount": 3,
+      "parseMs": 3.399999976158142,
+      "segments": 0,
+      "themeDidNotParse": true,
+      "totalSegments": 1,
+      "visitedSegments": 1
+    },
+    {
+      "cache": {
+        "activeHtmlBytes": 9047,
+        "backgroundHtmlBytes": 61866,
+        "budgetBytes": 50331648,
+        "overBudgetBytes": 0,
+        "retainedHtmlBytes": 70913,
+        "storedHtmlBytes": 0
+      },
+      "hasMath": false,
+      "hasShiki": true,
+      "headings": 19,
+      "images": [],
+      "imagesLoaded": 0,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "mermaidPending": 0,
+      "name": "cjk-typography.md",
+      "parseCount": 4,
+      "parseMs": 2,
+      "segments": 0,
+      "themeDidNotParse": true,
+      "totalSegments": 1,
+      "visitedSegments": 1
+    },
+    {
+      "cache": {
+        "activeHtmlBytes": 7766,
+        "backgroundHtmlBytes": 70913,
+        "budgetBytes": 50331648,
+        "overBudgetBytes": 0,
+        "retainedHtmlBytes": 78679,
+        "storedHtmlBytes": 0
+      },
+      "hasMath": false,
+      "hasShiki": false,
+      "headings": 13,
+      "images": [
+        {
+          "alt": "图片链接",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        }
+      ],
+      "imagesLoaded": 1,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "mermaidPending": 0,
+      "name": "links.md",
+      "parseCount": 5,
+      "parseMs": 2.200000047683716,
+      "segments": 0,
+      "themeDidNotParse": true,
+      "totalSegments": 1,
+      "visitedSegments": 1
+    },
+    {
+      "cache": {
+        "activeHtmlBytes": 12989,
+        "backgroundHtmlBytes": 78679,
+        "budgetBytes": 50331648,
+        "overBudgetBytes": 0,
+        "retainedHtmlBytes": 91668,
+        "storedHtmlBytes": 0
+      },
+      "hasMath": true,
+      "hasShiki": true,
+      "headings": 9,
+      "images": [
+        {
+          "alt": "图片（资源不可用）",
+          "src": null,
+          "width": 0
+        },
+        {
+          "alt": "图片（资源不可用）",
+          "src": null,
+          "width": 0
+        },
+        {
+          "alt": "图片（资源不可用）",
+          "src": null,
+          "width": 0
+        }
+      ],
+      "imagesLoaded": 0,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "mermaidPending": 0,
+      "name": "html-safety.md",
+      "parseCount": 6,
+      "parseMs": 18.600000023841854,
+      "segments": 0,
+      "themeDidNotParse": true,
+      "totalSegments": 1,
+      "visitedSegments": 1
+    },
+    {
+      "cache": {
+        "activeHtmlBytes": 1283,
+        "backgroundHtmlBytes": 91668,
+        "budgetBytes": 50331648,
+        "overBudgetBytes": 0,
+        "retainedHtmlBytes": 92951,
+        "storedHtmlBytes": 0
+      },
+      "hasMath": false,
+      "hasShiki": false,
+      "headings": 4,
+      "images": [],
+      "imagesLoaded": 0,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "mermaidPending": 0,
+      "name": "tabs/a.md",
+      "parseCount": 7,
+      "parseMs": 0.19999992847442627,
+      "segments": 0,
+      "themeDidNotParse": true,
+      "totalSegments": 1,
+      "visitedSegments": 1
+    }
+  ],
+  "ipc": [
+    {
+      "byteLength": 103414,
+      "expectedBytes": 103414,
+      "isArrayBuffer": true,
+      "name": "100kb",
+      "ok": true,
+      "readMs": 4.300000071525574
+    },
+    {
+      "byteLength": 1049596,
+      "expectedBytes": 1049596,
+      "isArrayBuffer": true,
+      "name": "1mb",
+      "ok": true,
+      "readMs": 10.399999976158142
+    },
+    {
+      "byteLength": 10486765,
+      "expectedBytes": 10486765,
+      "isArrayBuffer": true,
+      "name": "10mb",
+      "ok": true,
+      "readMs": 74.39999997615814
+    },
+    {
+      "byteLength": 52429974,
+      "expectedBytes": 52429974,
+      "isArrayBuffer": true,
+      "name": "50mb",
+      "ok": true,
+      "readMs": 381.3000000715256
+    }
+  ],
+  "stage": "complete",
+  "workbench": {
+    "cacheDidNotParse": true,
+    "childEntries": 20,
+    "deduplicated": true,
+    "independentSearch": true,
+    "outsideRejected": true,
+    "position": 700,
+    "readerHost": {
+      "deletionRetained": true,
+      "links": true,
+      "liveRefresh": true,
+      "persistence": true,
+      "versions": [
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    "reopenedPosition": 700,
+    "reopenedState": true,
+    "restored": 700,
+    "root": "D:\\Project\\Markdown\\fixtures",
+    "rootEntries": 9,
+    "searchCount": 1,
+    "tabs": 2
+  }
+}

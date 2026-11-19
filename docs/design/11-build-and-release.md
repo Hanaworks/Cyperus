@@ -11,14 +11,16 @@
 |---|---|---|
 | Windows | 10 1809+ / 11 | ✅ Windows 11 专业工作站版 |
 | Node.js | `^20.19 \|\| >=22.12` | ✅ 24.15.0 |
-| pnpm | 11.x | ✅ 11.15.0(**需 `cmd /c pnpm`**) |
-| Rust | ≥ 1.90 | ❌ **未安装(硬阻塞)** |
-| MSVC Build Tools | 2019+ 含 Windows SDK | ❌ 未验证 |
-| WebView2 Runtime | 任意现代版本 | ✅ 156.0.4314.50 |
+| pnpm | 11.x | ✅ 11.15.0（PowerShell 使用 `pnpm.cmd`） |
+| Rust / Cargo | ≥ 1.90 | ✅ 1.99.1，dev / release 与 22 项测试通过 |
+| MSVC Build Tools | 2019+ 含 Windows SDK | ✅ 本轮宿主构建通过 |
+| WebView2 Runtime | 任意现代版本 | ✅ 原生探针 156.0.4314.58 |
 | git | 任意 | ✅ 2.54.0 |
-| Python(仅 M0 Qt 对照) | 3.11+ | ✅ 3.14.6 |
+| Python(仅 Qt 对照) | 3.11+ | 3.14.6；用户已跳过 T14，不安装 Qt |
 
 ### 1.1 Rust 安装(待用户授权后执行)
+
+本机当前无需安装；下列为其他机器的准备参考，安装仍需单独授权。
 
 ```powershell
 # 方案 A:winget(推荐,可复现)
@@ -61,7 +63,7 @@ cargo --version
 }
 ```
 
-> Windows 下必须经 `cmd /c` 调用 pnpm(当前 PowerShell ExecutionPolicy 禁止 `.ps1` shim)。若用户愿意改 ExecutionPolicy,可去掉 `cmd /c`。
+> Windows PowerShell 使用 `pnpm.cmd` 或 `cmd /c pnpm`，避开 `.ps1` shim，无需修改执行策略。实际可运行脚本以根 `package.json` 为准；基准当前直接执行 `node src/bench/web-bench.mjs`。
 
 ### 2.1 `src/ui/package.json`
 
@@ -121,7 +123,7 @@ cargo --version
     "security": {
       "csp": { /* 见 04/06 */ },
       "assetProtocol": { "enable": true, "scope": [] },
-      "freezePrototype": true
+      "freezePrototype": false
     }
   },
   "bundle": {

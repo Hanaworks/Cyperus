@@ -1,0 +1,57 @@
+{
+  "window": {
+    "height": 780,
+    "maximized": false,
+    "width": 1060,
+    "x": 80,
+    "y": 90
+  },
+  "livePath": "D:\\Project\\Markdown\\fixtures\\generated\\m1-live-5bc082ac96c645d3ba0aeed049777b7e.md",
+  "workspace": {
+    "activePath": "D:\\Project\\Markdown\\fixtures\\basic.md",
+    "appTheme": "dark",
+    "fontSize": 17,
+    "markdownTheme": "paper",
+    "panel": "search",
+    "recentFiles": [
+      "D:\\Project\\Markdown\\fixtures\\basic.md",
+      "D:\\Project\\Markdown\\fixtures\\tabs\\a.md"
+    ],
+    "rootPath": "D:\\Project\\Markdown\\fixtures",
+    "schemaVersion": 1,
+    "sidebarWidth": 277,
+    "tabs": [
+      {
+        "anchor": {
+          "id": "段落与强调",
+          "line": 15,
+          "ratio": 0.751621271076524,
+          "text": "段落与强调"
+        },
+        "path": "D:\\Project\\Markdown\\fixtures\\basic.md",
+        "scrollTop": 420,
+        "search": {
+          "current": 0,
+          "query": "Markdown"
+        }
+      },
+      {
+        "path": "D:\\Project\\Markdown\\fixtures\\theme.md",
+        "scrollTop": 0,
+        "search": {
+          "current": 0,
+          "query": ""
+        }
+      },
+      {
+        "path": "D:\\Project\\Markdown\\fixtures\\tabs\\a.md",
+        "scrollTop": 0,
+        "search": {
+          "current": 0,
+          "query": ""
+        }
+      }
+    ]
+  },
+  "mode": "restore"
+}

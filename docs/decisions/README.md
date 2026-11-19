@@ -8,9 +8,9 @@
 
 | 编号 | 标题 | 状态 | 决策时机 | 文件 |
 |---|---|---|---|---|
-| ADR-001 | Markdown Renderer 与桌面架构选型 | `Pending` | M0 结束 | `ADR-001-renderer-and-host.md`(待写) |
-| ADR-002 | Markdown 样式隔离方案 | `Pending` | M0 结束 | `ADR-002-style-isolation.md`(待写) |
-| ADR-003 | 性能阈值与大文件策略 | `Pending` | M0 结束 | `ADR-003-performance-thresholds.md`(待写) |
+| ADR-001 | Markdown Renderer 与桌面架构选型 | `Proposed` | T16 / 建议用于 M1，待负责人批准 | [ADR-001-renderer-and-host.md](ADR-001-renderer-and-host.md) |
+| ADR-002 | Markdown 样式隔离方案 | `Proposed` | T16 / 建议用于 M1，待负责人批准 | [ADR-002-style-isolation.md](ADR-002-style-isolation.md) |
+| ADR-003 | 性能阈值与大文件策略 | `Proposed` | T16 / 建议用于 M1，待负责人批准 | [ADR-003-performance-thresholds.md](ADR-003-performance-thresholds.md) |
 | ADR-004 | 源码目录布局(`src/host` + `src/ui`) | `Proposed` | 立即 | `ADR-004-source-layout.md` |
 | ADR-005 | 大文件 IPC 传输方案(`Response` vs base64) | `Pending` | T10 实测后 | 待写 |
 
@@ -109,6 +109,8 @@
 
 `docs/design/12-implementation-plan.md` 的 `T16` 要求完成:
 
-- **ADR-001**:正式 Markdown Renderer(Web vs Qt 原生)、Parser(markdown-it vs unified)、桌面 Host(Tauri vs Electron vs Qt)。必须附统一口径的性能数据与功能缺口表,**不能只用一项微基准就全盘改写架构**。
-- **ADR-002**:样式隔离方案的最终选择(`命名空间` vs `Shadow DOM` vs `iframe`),附搜索高亮、Mermaid 渲染、视觉回归的实测结论。
-- **ADR-003**:量化性能阈值 —— 大文件分段触发阈值、HTML 缓存预算、去抖时长、首屏目标。**不得凭空承诺具体毫秒数**,必须来自 `benchmarks/results.csv`。
+- **ADR-001**:明确 Renderer / Parser / Host 与被弃方案理由，附同口径观测和功能缺口。本轮用户已跳过 T14；Qt 无有效性能样本，不作宿主资源排名，**不能只用一项微基准就全盘改写架构**。
+- **ADR-002**:明确命名空间 / Shadow DOM / iframe 的选择，区分已测的主题计算样式、不重解析和 Mermaid，与 T31 搜索、T32 完整视觉回归等待验收项。
+- **ADR-003**:量化分段、缓存、去抖等工程初值；从 `benchmarks/results.csv` 提取观测，明确 browser dev / native 的边界。沿用设计的原生性能目标须标为待标定，**不得把目标、未测量或单次 IPC 写成性能达标承诺**。
+
+三份 ADR 均为 `Proposed`，建议用于 M1，待负责人批准后才转为 `Accepted`。最终原生 IPC / 七份样本、独立的早一轮事后 idle 及约 2 MiB 长代码观测已纳入；basic 首次图片测量竞态已修复并复验，AC-10 未达标与 M1 待测范围仍明确保留。状态变更不代表这些能力已验收通过。

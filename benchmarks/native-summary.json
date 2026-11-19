@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-06T18:41:09.3860746Z",
+  "scope": "native release after IPC and seven fixtures, last active tabs/a.md; no forced GC",
+  "duration_ms": 721.168,
+  "samples": 2,
+  "rss_peak_mib": 693.914,
+  "rss_stable_mib": 693.914,
+  "idle_cpu_ms": 47.0,
+  "idle_cpu_pct": 6.517202,
+  "method": "CIM",
+  "executable_sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231"
+}

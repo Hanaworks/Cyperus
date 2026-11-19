@@ -1,0 +1,93 @@
+{
+  "complete": true,
+  "continuousSave": true,
+  "date": "2026-11-06T18:40:57.663Z",
+  "desktop": {
+    "current": {
+      "height": 600,
+      "maximized": true,
+      "width": 800,
+      "x": 20,
+      "y": 20
+    },
+    "restored": {
+      "height": 600,
+      "maximized": true,
+      "width": 800,
+      "x": 20,
+      "y": 20
+    }
+  },
+  "environment": {
+    "appVersion": "0.1.0",
+    "buildRevision": "fa78a1876df6-dirty",
+    "buildTime": "1793990327039",
+    "locale": "C.UTF-8",
+    "os": "windows",
+    "osVersion": "Windows",
+    "rustVersion": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "tauriVersion": "2.12.5",
+    "webviewVersion": "156.0.4314.58"
+  },
+  "errors": [],
+  "finalVersion": 2,
+  "mode": "restore",
+  "restored": true,
+  "stage": "awaiting-saves",
+  "viewport": {
+    "height": 852,
+    "scale": 1,
+    "width": 1440
+  },
+  "viewportScrollTop": 420,
+  "workspace": {
+    "activePath": "D:\\Project\\Markdown\\fixtures\\basic.md",
+    "appTheme": "light",
+    "fontSize": 17,
+    "markdownTheme": "paper",
+    "panel": "search",
+    "recentFiles": [
+      "D:\\Project\\Markdown\\fixtures\\basic.md",
+      "D:\\Project\\Markdown\\fixtures\\tabs\\a.md",
+      "D:\\Project\\Markdown\\fixtures\\theme.md",
+      "D:\\Project\\Markdown\\fixtures\\generated\\M1-中文-gb18030-e723fce65c3441c7ab6a07db88c6fd72.md",
+      "D:\\Project\\Markdown\\fixtures\\generated\\M1-中文-utf-16be-43561e4d66504b46ad1221b0f61d2e39.md",
+      "D:\\Project\\Markdown\\fixtures\\generated\\M1-中文-utf-16le-60ddb1e568044e5c9ccffb5dfcca098a.md"
+    ],
+    "rootPath": "D:\\Project\\Markdown\\fixtures",
+    "schemaVersion": 1,
+    "sidebarWidth": 277,
+    "tabs": [
+      {
+        "anchor": {
+          "id": "段落与强调",
+          "line": 15,
+          "ratio": 0.751621271076524,
+          "text": "段落与强调"
+        },
+        "path": "D:\\Project\\Markdown\\fixtures\\basic.md",
+        "scrollTop": 420,
+        "search": {
+          "current": 0,
+          "query": "Markdown"
+        }
+      },
+      {
+        "path": "D:\\Project\\Markdown\\fixtures\\theme.md",
+        "scrollTop": 0,
+        "search": {
+          "current": 0,
+          "query": ""
+        }
+      },
+      {
+        "path": "D:\\Project\\Markdown\\fixtures\\tabs\\a.md",
+        "scrollTop": 0,
+        "search": {
+          "current": 0,
+          "query": ""
+        }
+      }
+    ]
+  }
+}

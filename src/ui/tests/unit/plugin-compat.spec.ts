@@ -8,6 +8,9 @@ import footnote from 'markdown-it-footnote'
 // 其类型声明正确使用 PluginWithOptions<..>，与 markdown-it@15 兼容。
 import githubAlerts from 'markdown-it-github-alerts'
 import { describe, expect, it } from 'vitest'
+import { installHeadingAnchors } from '@/core/markdown/anchors'
+import { createMarkdownIt } from '@/core/markdown/preset'
+import { installTaskList } from '@/core/markdown/rules/taskList'
 
 // T05 —— markdown-it@15 与第三方插件兼容性冒烟测试。
 //
@@ -301,5 +304,50 @@ describe('插件组合渲染（真实夹具端到端）', () => {
     expect(html).toContain('footnote-ref')
     expect(html).toContain('class="shiki')
     expect(html).toContain('id="组合测试"')
+  })
+})
+
+describe('生产任务列表规则与完整插件链', () => {
+  it('任务内强调、脚注和公式与 Alerts、高亮及自研锚点兼容', async () => {
+    const md = createMarkdownIt().use(footnote)
+    installHeadingAnchors(md)
+    md.use(githubAlerts)
+    md.use(katexPlugin, { katex, throwOnError: false })
+    md.use(
+      await Shiki({
+        themes: { light: 'github-light', dark: 'github-dark' },
+        defaultColor: false,
+        langs: ['javascript'],
+      }),
+    )
+    installTaskList(md)
+
+    const source = [
+      '# 任务列表组合',
+      '',
+      '- [x] **完成** $x^2$ 与脚注[^n]',
+      '  - [ ] 子任务',
+      '',
+      '> [!NOTE]',
+      '> 提示',
+      '',
+      '```js',
+      'const done = true',
+      '```',
+      '',
+      '[^n]: 脚注内容',
+    ].join('\n')
+
+    const html = md.render(source, {})
+    expect(html.match(/class="task-list-checkbox"/g)).toHaveLength(2)
+    expect(html.match(/\sdisabled=""/g)).toHaveLength(2)
+    expect(html).toContain('aria-checked="true"')
+    expect(html).toContain('aria-checked="false"')
+    expect(html).toContain('<strong>完成</strong>')
+    expect(html.match(/class="footnote-ref"/g)).toHaveLength(1)
+    expect(html).toContain('class="katex"')
+    expect(html).toContain('markdown-alert-note')
+    expect(html).toContain('class="shiki')
+    expect(html).toContain('id="任务列表组合"')
   })
 })

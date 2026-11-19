@@ -109,15 +109,14 @@ Tauri 的 `asset:` 协议需要:
 1. `tauri.conf.json` 中 `app.security.assetProtocol.enable = true`。
 2. `assetProtocol.scope` 非空 **或** 运行期授权。
 
-静态 scope 若写成宽松模式(`**/*`)等于开放整盘读取,违背 NFR-006。因此采用**运行期按文档目录授权**:
+静态 scope 若写成宽松模式(`**/*`)等于开放整盘读取,违背 NFR-006。M0 实测后采用**先校验文档目录边界与链接，再逐文件运行期授权**，不开放整个目录:
 
 ```rust
-// src/host/src/commands/documents.rs —— open_document 内
-#[cfg(feature = "protocol-asset")]
+// src/host/src/commands.rs —— resolve_assets 校验通过后
 {
     use tauri::Manager;
     let scope = app.asset_protocol_scope();
-    scope.allow_directory(&doc_dir, true)?;   // 递归
+    scope.allow_file(&validated_path)?;
 }
 ```
 
@@ -203,7 +202,7 @@ worker 解析出 img src="./pic.png"(原文)
   "default-src": "'self'",
   "script-src": "'self'",
   "style-src": "'self' 'unsafe-inline'",
-  "img-src": "'self' asset: http://asset.localhost https: data: blob:",
+  "img-src": "'self' asset: http://asset.localhost data: blob:",
   "font-src": "'self' data:",
   "connect-src": "ipc: http://ipc.localhost",
   "worker-src": "'self' blob:",
@@ -220,7 +219,7 @@ worker 解析出 img src="./pic.png"(原文)
 |---|---|---|
 | `script-src 'self'` | 无 `unsafe-inline`/`unsafe-eval` | 禁止任何内联脚本执行;Tauri 会自动为打包脚本加 nonce/hash |
 | `style-src 'unsafe-inline'` | **必需** | KaTeX、Mermaid、Shiki 都会注入内联 `style` 属性与 `<style>` 元素 |
-| `img-src ... https:` | 条件性 | 远程图片默认由**应用层**拒绝(`allowRemoteImages:false`),CSP 里保留 `https:` 是为了用户开启后无需改配置重启;若追求最严可在 release 构建中移除 |
+| `img-src` 不含 `https:` | 当前 M0 策略 | 应用层先拦截远程资源，CSP 同时拒绝网络图片；M0 不提供远程图片开关。下文远程图片开启行为是待实现设计，须另行评估 CSP 与资源边界 |
 | `worker-src 'self' blob:` | 必需 | Worker 由 Vite 以 blob/独立文件方式加载 |
 | `connect-src ipc:` | 必需 | Tauri IPC |
 | `frame-src 'none'` | 严格 | 不使用 iframe(Mermaid `securityLevel` 不用 sandbox 模式) |

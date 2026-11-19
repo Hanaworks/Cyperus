@@ -1,0 +1,188 @@
+{
+  "date": "2026-11-06T18:54:09.4376582Z",
+  "profile": "D:\\Project\\Markdown\\benchmarks\\m1-8a845ca99ecf4a168135dc7c25a5688b",
+  "executable_sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+  "seed": {
+    "complete": true,
+    "date": "2026-11-06T18:54:11.124Z",
+    "desktop": {
+      "current": {
+        "height": 600,
+        "maximized": false,
+        "width": 800,
+        "x": 20,
+        "y": 20
+      },
+      "restored": null
+    },
+    "encodings": [
+      "utf-16le",
+      "utf-16be",
+      "gb18030"
+    ],
+    "environment": {
+      "appVersion": "0.1.0",
+      "buildRevision": "fa78a1876df6-dirty",
+      "buildTime": "1793990327039",
+      "locale": "C.UTF-8",
+      "os": "windows",
+      "osVersion": "Windows",
+      "rustVersion": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+      "tauriVersion": "2.12.5",
+      "webviewVersion": "156.0.4314.58"
+    },
+    "errors": [],
+    "forwarded": true,
+    "mode": "seed",
+    "stage": "awaiting-forward",
+    "viewport": {
+      "height": 800,
+      "scale": 1,
+      "width": 1100
+    },
+    "workspace": {
+      "activePath": "D:\\Project\\Markdown\\fixtures\\basic.md",
+      "appTheme": "light",
+      "fontSize": 17,
+      "markdownTheme": "paper",
+      "panel": "search",
+      "recentFiles": [
+        "D:\\Project\\Markdown\\fixtures\\basic.md",
+        "D:\\Project\\Markdown\\fixtures\\tabs\\a.md",
+        "D:\\Project\\Markdown\\fixtures\\theme.md",
+        "D:\\Project\\Markdown\\fixtures\\generated\\M1-中文-gb18030-1906c736daec46a985ceb72e41276cbe.md",
+        "D:\\Project\\Markdown\\fixtures\\generated\\M1-中文-utf-16be-de005bf951e9437ab5cd94f554cf9365.md",
+        "D:\\Project\\Markdown\\fixtures\\generated\\M1-中文-utf-16le-3dce8764302a4d659c37a59906c844a7.md"
+      ],
+      "rootPath": "D:\\Project\\Markdown\\fixtures",
+      "schemaVersion": 1,
+      "sidebarWidth": 277,
+      "tabs": [
+        {
+          "anchor": {
+            "id": "段落与强调",
+            "line": 15,
+            "ratio": 0.7474059662775616,
+            "text": "段落与强调"
+          },
+          "path": "D:\\Project\\Markdown\\fixtures\\basic.md",
+          "scrollTop": 447,
+          "search": {
+            "current": 0,
+            "query": "Markdown"
+          }
+        },
+        {
+          "path": "D:\\Project\\Markdown\\fixtures\\theme.md",
+          "scrollTop": 0,
+          "search": {
+            "current": 0,
+            "query": ""
+          }
+        },
+        {
+          "path": "D:\\Project\\Markdown\\fixtures\\tabs\\a.md",
+          "scrollTop": 0,
+          "search": {
+            "current": 0,
+            "query": ""
+          }
+        }
+      ]
+    }
+  },
+  "restored": {
+    "complete": true,
+    "continuousSave": true,
+    "date": "2026-11-06T18:54:13.155Z",
+    "desktop": {
+      "current": {
+        "height": 600,
+        "maximized": false,
+        "width": 800,
+        "x": 20,
+        "y": 20
+      },
+      "restored": {
+        "height": 600,
+        "maximized": false,
+        "width": 800,
+        "x": 20,
+        "y": 20
+      }
+    },
+    "environment": {
+      "appVersion": "0.1.0",
+      "buildRevision": "fa78a1876df6-dirty",
+      "buildTime": "1793990327039",
+      "locale": "C.UTF-8",
+      "os": "windows",
+      "osVersion": "Windows",
+      "rustVersion": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+      "tauriVersion": "2.12.5",
+      "webviewVersion": "156.0.4314.58"
+    },
+    "errors": [],
+    "finalVersion": 2,
+    "mode": "restore",
+    "restored": true,
+    "stage": "awaiting-saves",
+    "viewport": {
+      "height": 600,
+      "scale": 1,
+      "width": 800
+    },
+    "viewportScrollTop": 447,
+    "workspace": {
+      "activePath": "D:\\Project\\Markdown\\fixtures\\basic.md",
+      "appTheme": "light",
+      "fontSize": 17,
+      "markdownTheme": "paper",
+      "panel": "search",
+      "recentFiles": [
+        "D:\\Project\\Markdown\\fixtures\\basic.md",
+        "D:\\Project\\Markdown\\fixtures\\tabs\\a.md",
+        "D:\\Project\\Markdown\\fixtures\\theme.md",
+        "D:\\Project\\Markdown\\fixtures\\generated\\M1-中文-gb18030-1906c736daec46a985ceb72e41276cbe.md",
+        "D:\\Project\\Markdown\\fixtures\\generated\\M1-中文-utf-16be-de005bf951e9437ab5cd94f554cf9365.md",
+        "D:\\Project\\Markdown\\fixtures\\generated\\M1-中文-utf-16le-3dce8764302a4d659c37a59906c844a7.md"
+      ],
+      "rootPath": "D:\\Project\\Markdown\\fixtures",
+      "schemaVersion": 1,
+      "sidebarWidth": 277,
+      "tabs": [
+        {
+          "anchor": {
+            "id": "段落与强调",
+            "line": 15,
+            "ratio": 0.7474059662775616,
+            "text": "段落与强调"
+          },
+          "path": "D:\\Project\\Markdown\\fixtures\\basic.md",
+          "scrollTop": 447,
+          "search": {
+            "current": 0,
+            "query": "Markdown"
+          }
+        },
+        {
+          "path": "D:\\Project\\Markdown\\fixtures\\theme.md",
+          "scrollTop": 0,
+          "search": {
+            "current": 0,
+            "query": ""
+          }
+        },
+        {
+          "path": "D:\\Project\\Markdown\\fixtures\\tabs\\a.md",
+          "scrollTop": 0,
+          "search": {
+            "current": 0,
+            "query": ""
+          }
+        }
+      ]
+    }
+  },
+  "complete": true
+}

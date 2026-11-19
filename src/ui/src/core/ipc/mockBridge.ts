@@ -32,6 +32,7 @@ const docs = new Map<string, MockDoc>()
 const byPath = new Map<string, string>()
 
 let versionSeq = 0
+let documentSeq = 0
 
 function nextVersion(): number {
   versionSeq += 1
@@ -77,6 +78,7 @@ export function mockReset(): void {
   docs.clear()
   byPath.clear()
   versionSeq = 0
+  documentSeq = 0
 }
 
 // 列出所有可用 fixture 的仓库相对路径。
@@ -103,7 +105,7 @@ function openMock(path: string): DocMeta {
     throw { code: 'E_FILE_NOT_FOUND', message: `fixture 不存在：${normalized}` }
   }
 
-  const docId = `mock-${docs.size + 1}`
+  const docId = `mock-${++documentSeq}`
   const meta = buildMeta(docId, normalized, text)
   docs.set(docId, { meta, text, gone: false })
   byPath.set(normalized, docId)
@@ -117,12 +119,14 @@ function requireDoc(docId: string): MockDoc {
   return doc
 }
 
-function classifyLink(href: string): ResolvedLink {
+function classifyLink(docId: string, href: string): ResolvedLink {
+  const doc = requireDoc(docId)
   const s = href.trim()
   if (s === '') return { kind: 'blocked', reason: 'empty' }
 
   if (s.startsWith('#')) {
-    return { kind: 'anchor', anchor: decodeURIComponent(s.slice(1)) }
+    try { return { kind: 'anchor', anchor: decodeURIComponent(s.slice(1)) } }
+    catch { return { kind: 'blocked', reason: 'invalid-path' } }
   }
 
   const schemeMatch = /^([a-zA-Z][a-zA-Z0-9+.-]*):/.exec(s)
@@ -143,9 +147,22 @@ function classifyLink(href: string): ResolvedLink {
     return { kind: 'blocked', reason: 'unknown-scheme' }
   }
 
+  return classifyLocalLink(doc, s)
+}
+
+function classifyLocalLink(doc: MockDoc, s: string): ResolvedLink {
   const hashIndex = s.indexOf('#')
-  const pathPart = hashIndex >= 0 ? s.slice(0, hashIndex) : s
-  const anchor = hashIndex >= 0 ? decodeURIComponent(s.slice(hashIndex + 1)) : undefined
+  let pathPart: string
+  let anchor: string | undefined
+  try {
+    pathPart = decodeURIComponent((hashIndex >= 0 ? s.slice(0, hashIndex) : s).split('?')[0] ?? '').replace(/\\/g, '/')
+    anchor = hashIndex >= 0 ? decodeURIComponent(s.slice(hashIndex + 1)) : undefined
+  } catch { return { kind: 'blocked', reason: 'invalid-path' } }
+  if (pathPart.startsWith('/') || pathPart.includes(':') || pathPart.includes('\0')) return { kind: 'blocked', reason: 'outside-scope' }
+  const parts = relativeParts(pathPart)
+  if (!parts) return { kind: 'blocked', reason: 'outside-scope' }
+  const directory = doc.meta.path.includes('/') ? doc.meta.path.slice(0, doc.meta.path.lastIndexOf('/') + 1) : ''
+  pathPart = directory + parts.join('/')
 
   if (/\.(md|markdown|mdown|mkd)$/i.test(pathPart)) {
     const found = fixtureFor(pathPart) !== undefined
@@ -159,6 +176,16 @@ function classifyLink(href: string): ResolvedLink {
     return { kind: 'asset', absPath: pathPart }
   }
   return { kind: 'blocked', reason: 'target-not-found' }
+}
+
+function relativeParts(path: string): string[] | null {
+  const parts: string[] = []
+  for (const part of path.split('/')) {
+    if (!part || part === '.') continue
+    if (part === '..') { if (!parts.length) return null; parts.pop() }
+    else parts.push(part)
+  }
+  return parts
 }
 
 export const mockBridge: IpcBridge = {
@@ -191,8 +218,8 @@ export const mockBridge: IpcBridge = {
     })
   },
 
-  async resolveLink(_docId, href) {
-    return classifyLink(href)
+  async resolveLink(docId, href) {
+    return classifyLink(docId, href)
   },
 
   async revealDocument() {
@@ -248,8 +275,9 @@ function emit(event: string, payload: unknown): void {
 export function mockEmitChanged(docId: string, text?: string): void {
   const doc = docs.get(docId)
   if (!doc) return
+  doc.gone = false
   if (text !== undefined) doc.text = text
-  doc.meta = { ...doc.meta, version: nextVersion() }
+  doc.meta = { ...doc.meta, version: nextVersion(), size: new TextEncoder().encode(doc.text).byteLength }
   const payload: DocChangedPayload = { docId, version: doc.meta.version, kind: 'modify' }
   emit(DOC_CHANGED, payload)
 }
@@ -259,6 +287,7 @@ export function mockEmitGone(docId: string): void {
   const doc = docs.get(docId)
   if (!doc) return
   doc.gone = true
+  doc.meta = { ...doc.meta, version: nextVersion() }
   const payload: DocGonePayload = { docId, version: doc.meta.version }
   emit(DOC_GONE, payload)
 }

@@ -5,6 +5,8 @@
 
 ---
 
+**2026-11-07 实现对照：** 实际代码在 `src/host/src/documents.rs` / `encoding.rs` 与 `src/ui/src/core/documents/session.ts` / `budget.ts`。首次读取和刷新均核对前后版本、大小、时间和编码；原始字节经 UTF-8 / UTF-16 / GB18030 等标签解码。HTML 以 UTF-8 字节计入 48 MiB 全标签配额，非活动 LRU 逐出，轻量阅读 / 搜索状态保留；活动超额结果写入 `core/render/segmentStore.ts` 的临时 IndexedDB，关闭释放，活跃所有者锁避免并发窗口清理对方数据。下文是目标规格，最新验证与未完成项以 [M1 验收记录](../dev/m1-acceptance.md) 为准。
+
 ## 1. 术语
 
 | 术语 | 定义 |

@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Markdown 预览",
+  "productName": "Cyperus",
   "mainBinaryName": "md-preview",
   "identifier": "com.gkzix.markdownpreview",
   "version": "0.1.0",
@@ -22,13 +22,13 @@
     "windows": [
       {
         "label": "main",
-        "title": "Markdown 预览",
+        "title": "Cyperus",
         "width": 1100,
         "height": 800,
         "minWidth": 640,
         "minHeight": 480,
         "resizable": true,
-        "decorations": true,
+        "decorations": false,
         "dragDropEnabled": true,
         "visible": true
       }
@@ -38,7 +38,7 @@
         "default-src": "'self'",
         "script-src": "'self'",
         "style-src": "'self' 'unsafe-inline'",
-        "img-src": "'self' asset: http://asset.localhost https: data: blob:",
+        "img-src": "'self' asset: http://asset.localhost data: blob:",
         "font-src": "'self' data:",
         "connect-src": "ipc: http://ipc.localhost",
         "worker-src": "'self' blob:",
@@ -51,7 +51,7 @@
         "enable": true,
         "scope": []
       },
-      "freezePrototype": true
+      "freezePrototype": false
     }
   },
   "bundle": {

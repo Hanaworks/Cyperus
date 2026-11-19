@@ -1,4 +1,16 @@
 import { defineConfig, devices } from '@playwright/test'
+import { existsSync, readdirSync } from 'node:fs'
+import { homedir } from 'node:os'
+import { join } from 'node:path'
+
+function installedChromium(): string | undefined {
+  const cache = join(homedir(), 'AppData/Local/ms-playwright')
+  if (!existsSync(cache)) return undefined
+  return readdirSync(cache).filter((name) => /^chromium-\d+$/.test(name)).sort().reverse()
+    .flatMap((name) => ['chrome-win64/chrome.exe', 'chrome-win/chrome.exe'].map((exe) => join(cache, name, exe)))
+    .find(existsSync)
+}
+const browserPath = installedChromium()
 
 /**
  * Playwright 配置。
@@ -17,6 +29,7 @@ export default defineConfig({
   reporter: process.env['CI'] ? [['github'], ['html', { open: 'never' }]] : [['list']],
 
   use: {
+    launchOptions: browserPath ? { executablePath: browserPath } : {},
     baseURL: 'http://127.0.0.1:1420',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',

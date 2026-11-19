@@ -1,4 +1,4 @@
-﻿// 构建脚本。
+// 构建脚本。
 //
 // 除了 tauri_build::build()，还做一件小事：
 // 把编译期的 rustc 版本通过环境变量注入，供 lib.rs 的 get_env_info 使用。
@@ -14,7 +14,33 @@ use std::process::Command;
 
 fn main() {
     inject_rustc_version();
+    inject_build_identity();
     tauri_build::build();
+}
+
+fn inject_build_identity() {
+    let revision = Command::new("git")
+        .args(["rev-parse", "--short=12", "HEAD"])
+        .output()
+        .ok()
+        .filter(|output| output.status.success())
+        .map(|output| String::from_utf8_lossy(&output.stdout).trim().to_owned())
+        .unwrap_or_else(|| "source-snapshot".into());
+    let dirty = Command::new("git")
+        .args(["status", "--porcelain"])
+        .output()
+        .map(|output| !output.stdout.is_empty())
+        .unwrap_or(true);
+    let stamp = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_millis();
+    println!(
+        "cargo:rustc-env=BUILD_REVISION={revision}{}",
+        if dirty { "-dirty" } else { "" }
+    );
+    println!("cargo:rustc-env=BUILD_TIME={stamp}");
+    println!("cargo:rerun-if-changed=src");
 }
 
 fn inject_rustc_version() {

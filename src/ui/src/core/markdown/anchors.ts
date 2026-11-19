@@ -1,4 +1,4 @@
-import type { MarkdownIt as MarkdownItType } from 'markdown-it'
+import type { MarkdownIt as MarkdownItType, Token } from 'markdown-it'
 import { dedupeIds, slugify } from './slug'
 
 // 标题锚点插件。
@@ -8,30 +8,13 @@ import { dedupeIds, slugify } from './slug'
 // 有状态的 slugger 会导致同一文档第二次渲染时 id 全部漂移
 // （重复标题 → 重复标题-1），目录跳转随之失效。
 //
-// 自研实现的关键：去重状态存放在单次 parse() 的 env 里，
-// 而不是模块级或实例级变量。因此：
+// 自研实现的关键：每次 core rule 执行时重新建立去重状态，
+// 不依赖 env、模块级或实例级变量。因此即使调用方复用 env：
 // - 同一实例渲染任意次同一文档 → id 完全一致
 // - 并发渲染不同文档 → 互不干扰
 //
 // 产出的 token 与 markdown-it-anchor 兼容：给 heading_open 设 id 属性，
 // 并附加 tabindex="-1"（便于程序化聚焦与滚动定位）。
-
-// env 中存放去重计数器的键。
-const ENV_KEY = '__heading_id_counts'
-
-interface IdCountEnv {
-  [ENV_KEY]?: Map<string, number>
-}
-
-function getCounts(env: unknown): Map<string, number> {
-  const e = env as IdCountEnv
-  let counts = e[ENV_KEY]
-  if (!counts) {
-    counts = new Map<string, number>()
-    e[ENV_KEY] = counts
-  }
-  return counts
-}
 
 // 挂载标题锚点规则。
 //
@@ -40,7 +23,8 @@ function getCounts(env: unknown): Map<string, number> {
 export function installHeadingAnchors(md: MarkdownItType): void {
   md.core.ruler.after('inline', 'md_heading_anchors', (state) => {
     const tokens = state.tokens
-    const counts = getCounts(state.env)
+    const headings: Token[] = []
+    const bases: string[] = []
 
     for (let i = 0; i < tokens.length; i += 1) {
       const token = tokens[i]
@@ -49,19 +33,18 @@ export function installHeadingAnchors(md: MarkdownItType): void {
       const inline = tokens[i + 1]
       if (inline?.type !== 'inline') continue
 
-      // 取标题纯文本：优先用 children 里的 text/code_inline 内容
-      const text = headingText(inline)
-      const base = slugify(text)
-      if (!base) continue
+      headings.push(token)
+      bases.push(slugify(headingText(inline)))
+    }
 
-      const count = counts.get(base) ?? 0
-      counts.set(base, count + 1)
-      const id = count === 0 ? base : `${base}-${count}`
-
+    const ids = dedupeIds(bases)
+    headings.forEach((token, index) => {
+      const id = ids[index]
+      if (id === undefined) return
       token.attrSet('id', id)
       // 便于 scrollIntoView 后程序化聚焦，不进入 Tab 序列
       token.attrSet('tabindex', '-1')
-    }
+    })
   })
 }
 

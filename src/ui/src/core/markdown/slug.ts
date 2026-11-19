@@ -37,13 +37,24 @@ export function slugify(input: string): string {
 // 在单次渲染内为标题 id 去重。纯函数，无状态。
 // 去重格式与 GitHub 一致：base、base-1、base-2 ……
 export function dedupeIds(bases: readonly string[]): string[] {
-  const seen = new Map<string, number>()
+  const nextSuffix = new Map<string, number>()
+  const used = new Set<string>()
   const out: string[] = []
 
-  for (const base of bases) {
-    const count = seen.get(base) ?? 0
-    seen.set(base, count + 1)
-    out.push(count === 0 ? base : `${base}-${count}`)
+  for (const input of bases) {
+    const base = input || 'section'
+    let suffix = nextSuffix.get(base) ?? 0
+    let id = suffix === 0 ? base : `${base}-${suffix}`
+
+    // 数字后缀也可能来自真实标题，例如 foo / foo / foo-1。
+    while (used.has(id)) {
+      suffix += 1
+      id = `${base}-${suffix}`
+    }
+
+    nextSuffix.set(base, suffix + 1)
+    used.add(id)
+    out.push(id)
   }
 
   return out

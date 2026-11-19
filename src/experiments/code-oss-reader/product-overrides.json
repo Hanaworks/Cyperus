@@ -1,0 +1,16 @@
+{
+  "nameShort": "Cyperus",
+  "nameLong": "Cyperus",
+  "applicationName": "md-reader-lab",
+  "dataFolderName": ".md-reader-lab",
+  "sharedDataFolderName": ".md-reader-lab-shared",
+  "win32MutexName": "md-reader-lab",
+  "win32DirName": "Cyperus",
+  "win32NameVersion": "Cyperus",
+  "win32RegValueName": "MarkdownReaderLab",
+  "win32AppUserModelId": "Local.MarkdownReaderLab",
+  "win32ShellNameShort": "Cyperus",
+  "urlProtocol": "md-reader-lab",
+  "enableTelemetry": false,
+  "builtInExtensions": []
+}

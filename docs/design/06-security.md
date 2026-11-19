@@ -101,6 +101,8 @@
 
 窗口 label 固定为 `main`,不使用 `*` 通配。
 
+2026-11-05 自定义标题栏：当前发布 capability 在既有 `core:default`、set-title、set-focus 基础上，仅给 main 增加 `core:window:allow-minimize`、`allow-toggle-maximize`、`allow-close`、`allow-start-dragging` 四个窗口动作；窗口设为 `decorations: false`。最大化状态查询、窗口事件与标题栏双击的 internal-toggle-maximize 由当前 core 默认权限覆盖。这里不新增文件、shell、网络或系统设置权限；上方 dialog/opener 段仍属于完整后续规格，实际权限以 `src/host/capabilities/default.json` 为准。
+
 ---
 
 ## 4. CSP 与配置
@@ -111,7 +113,7 @@
 "app": {
   "withGlobalTauri": false,          // 不暴露 window.__TAURI__
   "security": {
-    "freezePrototype": true,         // 冻结 Object.prototype,防原型污染链劫持
+    "freezePrototype": false,        // M0 已复现开启时 Mermaid 依赖不兼容，见 ADR-001
     "dangerousDisableAssetCspModification": false,
     "pattern": { "use": "brownfield" }
   }
@@ -119,7 +121,8 @@
 ```
 
 - `withGlobalTauri: false` → 前端必须 `import { invoke } from '@tauri-apps/api/core'`,同时避免任意注入的脚本直接拿到 `window.__TAURI__`。
-- `freezePrototype: true` 的代价:某些库在原型上打补丁会失败。**必须实测** Vue 3.5 / Pinia 4 / DOMPurify 3.4 / KaTeX 0.19 / Mermaid 12 是否兼容。若不兼容,关闭该项并记录理由。
+- M0 发布构建实测：开启 `freezePrototype` 会使 Mermaid 的 vscode-jsonrpc 依赖向 `toString` 赋值时抛出只读异常并导致窗口空白；相同发布资源可用 `node src/bench/check-production.mjs --freeze` 重现。当前关闭这项可选硬化，保留严格 script CSP、HTML / SVG 消毒和逐文件资源授权。恢复前必须验证完整发布产物，见 [ADR-001](../decisions/ADR-001-renderer-and-host.md)。
+- 当前 M0 的图片 CSP 不包含 `https:`，不提供远程图片开关；后续若实现用户主动开启远程图片，须另行设计安全策略，不能仅放宽 CSP。
 
 ---
 

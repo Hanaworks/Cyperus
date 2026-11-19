@@ -1,0 +1,110 @@
+<h1 id="链接跳转测试样本fr-019" tabindex="-1" data-src-line="1" data-src-end="1">链接跳转测试样本（FR-019）</h1>
+<p data-src-line="3" data-src-end="3">本文件用于验证所有链接类型的分流行为。逐条点击，行为见各条说明。</p>
+<h2 id="1-页内锚点" tabindex="-1" data-src-line="5" data-src-end="5">1. 页内锚点</h2>
+<ul data-src-line="7" data-src-end="11">
+<li>跳到本文件章节：<a href="#3-%E6%9C%AC%E5%9C%B0-markdown-%E9%93%BE%E6%8E%A5">跳到第 3 节</a></li>
+<li>中文锚点：<a href="#%E4%B8%AD%E6%96%87%E6%A0%87%E9%A2%98%E6%B5%8B%E8%AF%95">跳到中文标题</a></li>
+<li>含空格锚点：<a href="#1-%E9%A1%B5%E5%86%85%E9%94%9A%E7%82%B9">跳到第 1 节</a></li>
+<li><strong>不存在的锚点</strong>（应提示「文档中不存在锚点」，不滚动）：<a href="#%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E9%94%9A%E7%82%B9">跳空</a></li>
+</ul>
+<h2 id="2-特殊字符锚点" tabindex="-1" data-src-line="12" data-src-end="12">2. 特殊字符锚点</h2>
+<h3 id="中文标题测试" tabindex="-1" data-src-line="14" data-src-end="14">中文标题测试</h3>
+<p data-src-line="16" data-src-end="16">这一节用于验证中文 slug。</p>
+<h4 id="emoji-与符号-目标" tabindex="-1" data-src-line="18" data-src-end="18">emoji 与符号：🎯 目标</h4>
+<p data-src-line="20" data-src-end="20">这一节用于验证 emoji 与全角符号在 id 中的处理。</p>
+<h2 id="3-本地-markdown-链接" tabindex="-1" data-src-line="22" data-src-end="22">3. 本地 Markdown 链接</h2>
+<ul data-src-line="24" data-src-end="30">
+<li>存在的目标：<a href="./tabs/a.md">tabs/a.md</a></li>
+<li>大写扩展名：<a href="./tabs/B.MD">tabs/B.MD</a></li>
+<li>带锚点：<a href="./tabs/a.md#%E7%AB%A0%E8%8A%82%E4%B8%80">tabs/a.md#章节一</a></li>
+<li>带空格路径：<a href="./%E5%B8%A6%E7%A9%BA%E6%A0%BC%E7%9A%84%E6%96%87%E4%BB%B6.md">带空格的文件.md</a></li>
+<li><strong>不存在</strong>（应提示目标不存在，且<strong>不创建空白标签</strong>）：<a href="./%E4%B8%8D%E5%AD%98%E5%9C%A8%E7%9A%84%E6%96%87%E4%BB%B6.md">不存在</a></li>
+<li><strong>父目录越界</strong>（应被拒绝）：<a href="../../outside.md">越界</a></li>
+</ul>
+<h2 id="4-本地附件交系统默认程序" tabindex="-1" data-src-line="31" data-src-end="31">4. 本地附件（交系统默认程序）</h2>
+<ul data-src-line="33" data-src-end="36">
+<li>图片：<a href="./resources/sample.png">sample.png</a></li>
+<li>中文名图片：<a href="./resources/%E4%B8%AD%E6%96%87%E5%9B%BE%E7%89%87.png">中文图片.png</a></li>
+<li><strong>不存在</strong>（应提示）：<a href="./resources/missing.png">缺失</a></li>
+</ul>
+<h2 id="5-外部链接交系统浏览器应用界面不得被导航离开" tabindex="-1" data-src-line="37" data-src-end="37">5. 外部链接（交系统浏览器，应用界面不得被导航离开）</h2>
+<ul data-src-line="39" data-src-end="45">
+<li>HTTPS：<a href="https://example.com" rel="noopener noreferrer" data-md-external="1">https://example.com</a></li>
+<li>HTTP：<a href="http://example.com" rel="noopener noreferrer" data-md-external="1">http://example.com</a></li>
+<li>带路径与查询：<a href="https://example.com/path?q=1#frag" rel="noopener noreferrer" data-md-external="1">https://example.com/path?q=1#frag</a></li>
+<li>邮件：<a href="mailto:test@example.com" rel="noopener noreferrer" data-md-external="1">mailto:test@example.com</a></li>
+<li>自动链接：<a href="https://example.org" rel="noopener noreferrer" data-md-external="1">https://example.org</a></li>
+<li>裸链接文本（linkify）：<a href="https://example.net" rel="noopener noreferrer" data-md-external="1">https://example.net</a></li>
+</ul>
+<h2 id="6-必须被拦截的链接" tabindex="-1" data-src-line="46" data-src-end="46">6. 必须被拦截的链接</h2>
+<ul data-src-line="48" data-src-end="55">
+<li><code>javascript:</code>：[恶意](javascript:alert(1))</li>
+<li>大小写变体：[变体](JaVaScRiPt:alert(2))</li>
+<li><code>vbscript:</code>：[vb](vbscript:msgbox(1))</li>
+<li><code>data:</code> HTML：[data](data:text/html,<script>alert(3)</script>)</li>
+<li><code>file:</code>：[file](file:///C:/Windows/win.ini)</li>
+<li>未知 scheme：<a href="chrome://settings">chrome</a></li>
+<li><code>asset:</code>：<a href="asset://localhost/x">asset</a></li>
+</ul>
+<h2 id="7-特殊形态链接" tabindex="-1" data-src-line="56" data-src-end="56">7. 特殊形态链接</h2>
+<p data-src-line="58" data-src-end="58">图片包裹的链接：<a href="https://example.com" rel="noopener noreferrer" data-md-external="1"><img src="./resources/sample.png" alt="图片链接" loading="lazy" decoding="async" data-md-image="1"></a></p>
+<p data-src-line="60" data-src-end="60">表格中的链接：</p>
+<table data-src-line="62" data-src-end="66">
+<thead>
+<tr>
+<th>类型</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>页内</td>
+<td><a href="#1-%E9%A1%B5%E5%86%85%E9%94%9A%E7%82%B9">第 1 节</a></td>
+</tr>
+<tr>
+<td>外链</td>
+<td><a href="https://example.com" rel="noopener noreferrer" data-md-external="1">example</a></td>
+</tr>
+<tr>
+<td>本地</td>
+<td><a href="./tabs/a.md">a.md</a></td>
+</tr>
+</tbody>
+</table>
+<p data-src-line="68" data-src-end="68">列表中的链接：</p>
+<ol data-src-line="70" data-src-end="72">
+<li><a href="#2-%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E9%94%9A%E7%82%B9">第 2 节</a></li>
+<li><a href="./resources/sample.png">sample</a></li>
+</ol>
+<p data-src-line="73" data-src-end="73">引用中的链接：</p>
+<blockquote data-src-line="75" data-src-end="75">
+<p>引用里的<a href="https://example.com" rel="noopener noreferrer" data-md-external="1">外链</a>与<a href="#3-%E6%9C%AC%E5%9C%B0-markdown-%E9%93%BE%E6%8E%A5">锚点</a>。</p>
+</blockquote>
+<p data-src-line="77" data-src-end="77">脚注引用<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>与回链。</p>
+<h2 id="8-超长与边界" tabindex="-1" data-src-line="79" data-src-end="79">8. 超长与边界</h2>
+<ul data-src-line="81" data-src-end="87">
+<li>超长 URL（应仍能安全处理或提示无效）：
+<a href="https://example.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" rel="noopener noreferrer" data-md-external="1">超长</a></li>
+<li>空链接：<a href="#">空</a></li>
+<li>只有井号：<a href="#">井</a></li>
+<li>百分号编码锚点：<a href="#%E4%B8%AD%E6%96%87%E6%A0%87%E9%A2%98%E6%B5%8B%E8%AF%95">编码</a></li>
+<li>反斜杠路径：<a href="./tabs%5Ca.md">反斜杠</a></li>
+</ul>
+<h2 id="9-自引用" tabindex="-1" data-src-line="88" data-src-end="88">9. 自引用</h2>
+<ul data-src-line="90" data-src-end="92">
+<li>指向本文件：<a href="./links.md">links.md</a></li>
+<li>指向本文件带锚点：<a href="./links.md#5-%E5%A4%96%E9%83%A8%E9%93%BE%E6%8E%A5%E4%BA%A4%E7%B3%BB%E7%BB%9F%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BA%94%E7%94%A8%E7%95%8C%E9%9D%A2%E4%B8%8D%E5%BE%97%E8%A2%AB%E5%AF%BC%E8%88%AA%E7%A6%BB%E5%BC%80">第 5 节</a></li>
+</ul>
+<h2 id="10-连续点击同一目标fr-019-ac-15" tabindex="-1" data-src-line="93" data-src-end="93">10. 连续点击同一目标（FR-019 AC-15）</h2>
+<ul data-src-line="95" data-src-end="98">
+<li><a href="./tabs/a.md">目标 A</a></li>
+<li><a href="./tabs/a.md">目标 A 再来一次</a></li>
+<li><a href="./tabs/a.md">目标 A 第三次</a></li>
+</ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>脚注内容，用于验证脚注回链可点击。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>

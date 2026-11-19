@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Preview-first 本地 Markdown 桌面阅读器",
+  "author": "Hakumoatori <hakumoatori@gmail.com>",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },

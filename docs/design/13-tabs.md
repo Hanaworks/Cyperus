@@ -1,12 +1,18 @@
 # 13 — 多标签界面
 
 > 覆盖 **FR-020(P0)**、FR-007、**NFR-013**、UC-03、AC-06 / AC-16 / AC-17 / AC-18 / AC-19。
-> 代码落点:`src/ui/src/app/TabBar.vue`、`TabItem.vue`、`TabOverflowList.vue`、`src/ui/src/stores/tabs.ts`、`src/ui/src/core/tabs/**`。
+> 当前代码落点:`src/ui/src/app/DocumentTabs.vue`、`src/ui/src/core/documents/session.ts`、`src/ui/src/App.vue`、`src/ui/src/reader/ReaderView.vue`。
 > 需求细则见需求文档 §3.5。
+
+> **2026-11-07 最新状态**：主要标签交互现已接通拖动重排、右键关闭其他 / 右侧 / 全部、带过滤的溢出列表、Ctrl+PageUp/Down、跨文档后台链接、文件更新状态和跨启动恢复。持久化包含顺序、活动路径、像素阅读位置与搜索状态；最近关闭最多 15 条，仍限当前会话。首次打开期间外部保存、恢复期间用户关闭 / 打开其他文件、关闭后激活待更新邻居均已有回归。完整语义位置、LRU 及帧率目标仍未验收，见 [阅读流程完整性记录](../dev/reader-completion-plan.md)。以下早期进展段落保留历史，不代表当前缺口。
+
+> 2026-11-04：基础多标签已接入 [阅读工作台](./15-reader-workbench.md)，T24c 仍为部分实现。已具备多选 / 多文件拖入 / 启动参数、路径去重、切换复用 ParseResult、每标签会话内滚动位置、关闭按钮 / 中键 / Ctrl+W、Ctrl+Tab / Ctrl+1..9、横向滚动与基础键盘导航。拖拽重排、右键菜单、溢出下拉、恢复最近关闭、跨会话持久化、每标签搜索上下文、watcher 状态与 T28 LRU 仍未完成。以下完整规格和量化目标不代表已通过验收；本轮验证见 [UX 执行记录](../dev/ux-workbench-progress.md)。
 
 ---
 
 ## 1. 为什么标签是一等需求
+
+2026-11-07补充：本轮已完成每标签独立查询/匹配序号，以及文件菜单和Ctrl+Shift+T恢复最近关闭路径文档；最多15条，仅当前会话，恢复原标签顺序和阅读/搜索状态，并重新读取文件。临时浏览器正文不保留关闭副本；文件消失时提示并移除记录，不留下新错误空标签。跨启动持久化、完整右键/重排/溢出与watcher/LRU仍待完成。最新验证见 [功能推进记录](../dev/functional-progress-plan.md)，上方11月4日状态仅为历史。
 
 原需求 FR-007 只说「支持同时打开多个文件、在文档间切换」,没有规定形态。若不明确,常见退化实现有:
 
@@ -14,7 +20,7 @@
 - 侧边栏文件列表(切换成本高,不适合"同时对照阅读");
 - 多窗口(窗口管理成本高,用户容易迷失)。
 
-因此明确为**顶部标签栏**,与 Chrome / VS Code 一致,并把它作为 `P0` 交互骨架,而不是后期的可选增强。
+因此明确为**阅读区顶部标签栏**,与 Chrome / VS Code 一致,并把它作为 `P0` 交互骨架。文件树承担浏览目录，标签栏承担已打开文档切换；文件 / 搜索 / 大纲是同级活动栏入口，大纲不附在文件树底部。
 
 ---
 
@@ -59,8 +65,12 @@
 
 ## 3. 数据结构
 
+当前 `DocumentSession` 是框架无关的唯一会话控制器；`SessionTab` 保存 `id`、宿主 `meta`、`name`、`path`、`result: ParseResult | null`、`status: 'loading' | 'ready' | 'error'`、`error` 与 `scrollTop`。`activate` 直接使用已有解析结果，Vue 只同步视图；阅读区仅保留一个活动 DOM。
+
+下面是完整 T24c / watcher / T28 需要逐步补齐的目标字段；沿现有 session 扩展，不另建一份独立 Pinia 标签状态。`scrollTop` 到源码行锚点的增强归 T29，当前会话内位置恢复不代表内容变化后的锚点恢复完成。
+
 ```ts
-// src/ui/src/stores/tabs.ts
+// 目标模型示意，尚未全部实现
 export interface Tab {
   docId: string
   path: string            // canonical 绝对路径
@@ -116,6 +126,7 @@ export interface TabsState {
 | 正文链接跳转 | 新标签并激活 |
 | `Ctrl`+点击链接 / 中键点击链接 | 新标签但不激活 |
 | 启动参数 / 文件关联 | 按 argv 顺序建标签,激活第一个 |
+| 文件树点击 Markdown | 已打开则激活，否则新建；更换浏览根目录不关闭现有标签 |
 | 从「最近文件」点击 | 已打开则激活,否则新建 |
 
 **重复打开必须去重**:以 canonical path 为准。若目标已存在 → 只 `activate`,不新建。这需要 Rust 侧 `open_document` 返回同一 `docId`(见 `02-document-lifecycle.md` §3.5)。
@@ -144,7 +155,7 @@ export interface TabsState {
 6. 重建该标签的 Mermaid 可见区渲染
 ```
 
-**第 3 步是"切换不重新解析"的关键**:必须走缓存路径,不能无条件 `parse`。验收时用 `performance.mark` 证明 `parseMs` 未新增。
+**第 3 步是"切换不重新解析"的关键**:必须走缓存路径,不能无条件 `parse`。验收时断言解析调用计数 `parseCount` 不增加；仅比较上次解析耗时不足以证明没有重解析。
 
 ### 4.3 关闭
 
@@ -187,6 +198,8 @@ async function closeTab(id: string) {
 
 ### 4.4 重排(拖拽)
 
+后续完整 T24c 范围，当前尚未实现。
+
 - 使用原生 HTML5 `draggable` + `dragover` 计算插入位置,**不引入拖拽库**。
 - 拖拽时显示 2 px 插入指示线。
 - 允许拖到标签栏两端。
@@ -203,11 +216,14 @@ async function closeTab(id: string) {
 | B. 溢出下拉 | 超出可用宽度时,尾部显示 `[▾ N]`,点击列出全部标签 |
 
 **决策:同时支持 A + B。**
+- 当前已提供 A 横向滚动与活动标签滚入视野，B 溢出下拉仍待实现。
 - A 保证直观(可直接滚动到任意标签)。
 - B 保证在 20+ 标签时仍可快速定位(下拉带搜索过滤,输入即筛)。
 - 活动标签变化时必须 `scrollIntoView({ inline: 'nearest' })`。
 
 ### 4.6 右键菜单
+
+后续完整 T24c 范围，当前尚未实现。
 
 ```text
 ┌────────────────────────┐
@@ -243,9 +259,13 @@ function reopenLastClosed() {
 - 关闭应用后**不保留**(会话内有效),避免跨启动的意外恢复。
 - 快捷键 `Ctrl+Shift+T`。
 
+2026-11-07实现：文件菜单也提供同一入口，无记录时禁用；存活的同路径标签直接激活，不覆盖它的新阅读/搜索状态。关闭记录仅存路径、索引、scrollTop和搜索上下文，不保留ParseResult或宿主句柄；临时文本和失败标签不纳入恢复记录。
+
 ---
 
 ## 5. 持久化
+
+尚未实现；当前只在会话内保存各标签的解析结果和 `scrollTop`，不宣称重启后恢复。
 
 ```jsonc
 // settings.json 片段
@@ -273,14 +293,15 @@ function reopenLastClosed() {
 | 功能 | 作用范围 | 说明 |
 |---|---|---|
 | Markdown 主题 / App 主题 | **全局** | 不随标签变化;切主题会影响所有标签(逐出标签按需重绘) |
-| 目录(TOC) | 活动标签 | 切换标签时重建;数据来自该标签缓存的 `toc`,不重新解析 |
-| 搜索 | 活动标签 | 每个标签独立保存 `query` 与当前命中索引;切换回来时恢复高亮 |
+| 文件树 | 当前选定根目录 | 显示当前文档；切换面板保留展开状态，更换根目录保留已开标签 |
+| 大纲(TOC) | 活动标签 | 独立同级活动栏入口；数据来自该标签缓存的 `toc`,不重新解析 |
+| 搜索 | 活动标签 | 当前工作台共享 `query` 并对活动正文重算；每标签独立保存查询与命中索引仍为后续规格 |
 | 状态栏 | 活动标签 | 编码、行数、图表数、同步状态均取自活动标签 |
 | 缩放 / 正文字号 | 全局 | 与标签无关 |
 | 实时刷新 | 活动标签立即;非活动标签置 `stale` | 见 `03-live-reload.md` §4.4 |
 | 诊断面板 | 全局 | — |
 
-**每个标签独立保存的项**:`scrollAnchor`、搜索 `query` 与索引、`stale` 状态、`version`。
+**当前每标签独立保存的项**:元数据、解析结果、打开状态 / 错误与会话内 `scrollTop`。**后续目标**:`scrollAnchor`、搜索 `query` 与索引、`stale` 状态、`version`。
 **全局共享的项**:主题、字号、行宽、窗口尺寸、侧栏宽度与可见性、缩放。
 
 ---
@@ -288,12 +309,13 @@ function reopenLastClosed() {
 ## 7. 性能约束
 
 > 对应 **NFR-013**:切换不得重新解析未变化文档;标签数增长不得导致切换延迟线性恶化。
+> 下表为待验收目标。T28 LRU 尚未实现，当前保留已开标签的 ParseResult；用户本轮优先 UX，未重跑性能矩阵，原 M0 未达标项继续保留。
 
 | 指标 | 目标 |
 |---|---|
 | 标签切换(已缓存) | < 50 ms 到内容可见 |
 | 标签切换(需重解析,1 MB) | < 400 ms |
-| 切换时的解析调用次数 | **0**(未变化的文档;E2E-29 断言 `parseMs` 无新增) |
+| 切换时的解析调用次数 | **0**(未变化的文档;E2E-29 断言 `parseCount` 不增加) |
 | 打开 20 个标签耗时 | < 3 s(批量,串行解析) |
 | 20 → 100 标签时切换延迟增长 | 不随数量线性增长(逐出后走重解析路径,但切换本身仍是 O(1) 查找) |
 | 打开 100 个标签 | 不崩溃;仅最近 10 个保留 `html`,其余 `stale` |
@@ -321,20 +343,14 @@ function reopenLastClosed() {
 
 ```text
 src/ui/src/app/
-├── TabBar.vue            标签栏容器:溢出计算、滚动、拖拽容器、右键菜单挂载
-├── TabItem.vue           单标签:标题、状态图标、关闭按钮、拖拽源
-├── TabOverflowList.vue   溢出下拉(带过滤输入)
-├── TabContextMenu.vue    右键菜单
-└── TabsDnd.ts            纯函数:计算拖拽插入索引(可单测)
+└── DocumentTabs.vue      当前标签栏:展示、激活、关闭、横向滚动、键盘导航
 
-src/ui/src/stores/tabs.ts         状态与动作
-src/ui/src/core/tabs/
-├── order.ts              插入/移除/重排的纯函数
-├── recent.ts             最近关闭栈
-└── persist.ts            序列化与恢复
+src/ui/src/core/documents/session.ts   当前会话、去重、异步生命周期、缓存、位置
+src/ui/src/App.vue                    打开来源、快捷键与活动文档集成
+src/ui/src/reader/ReaderView.vue       单活动 DOM、搜索与滚动位置
 ```
 
-**`order.ts` 必须是纯函数**,输入 `Tab[]` 与操作,输出新数组,不触碰 DOM 与 store —— 这样全部顺序逻辑可用 Vitest 覆盖,不需要挂载组件。
+后续可按完整功能拆出 `TabOverflowList.vue`、`TabContextMenu.vue`、纯重排函数、最近关闭栈与持久化适配；保持 `DocumentSession` 为唯一状态源。顺序操作保持纯函数，输入数组与操作、输出新数组，不触碰 DOM，方便独立测试。
 
 ---
 
@@ -376,7 +392,7 @@ src/ui/src/core/tabs/
 | E2E-26 | 关闭 2 个后 `Ctrl+Shift+T` 两次 → 恢复且位置正确 |
 | E2E-27 | 打开 20 个文件 → 溢出下拉可用 → 从下拉激活第 15 个 |
 | E2E-28 | 滚动到 60% → 切标签 → 切回 → 位置仍在 60% ±5% |
-| E2E-29 | 切回标签时 `parseMs` 未增加(通过 `window.__metrics` 读取) |
+| E2E-29 | 切回标签时 `parseCount` 不增加(仅测试模式通过 `window.__M0__.stats()` 读取) |
 | E2E-30 | 关闭标签后 mock 记录 `closeDocument` 被调用一次 |
 
 ---

@@ -1,0 +1,262 @@
+<h1 id="扩展语法测试样本" tabindex="-1" data-src-line="1" data-src-end="1">扩展语法测试样本</h1>
+<p data-src-line="3" data-src-end="3">覆盖 GFM 及常用扩展：表格、任务列表、删除线、脚注、GitHub Alerts、数学公式、Mermaid、代码高亮、相对资源、原始 HTML。</p>
+<h2 id="1-gfm-表格" tabindex="-1" data-src-line="5" data-src-end="5">1. GFM 表格</h2>
+<table data-src-line="7" data-src-end="11">
+<thead>
+<tr>
+<th style="text-align:left">左对齐</th>
+<th style="text-align:center">居中</th>
+<th style="text-align:right">右对齐</th>
+<th>默认</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">a</td>
+<td style="text-align:center">b</td>
+<td style="text-align:right">c</td>
+<td>d</td>
+</tr>
+<tr>
+<td style="text-align:left">中文</td>
+<td style="text-align:center">中</td>
+<td style="text-align:right">1234</td>
+<td>空格</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>代码</code></td>
+<td style="text-align:center"><strong>粗</strong></td>
+<td style="text-align:right"><em>斜</em></td>
+<td><a href="https://example.com" rel="noopener noreferrer" data-md-external="1">链</a></td>
+</tr>
+</tbody>
+</table>
+<p data-src-line="13" data-src-end="13">窄表格：</p>
+<table data-src-line="15" data-src-end="17">
+<thead>
+<tr>
+<th>单列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>值</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-任务列表" tabindex="-1" data-src-line="19" data-src-end="19">2. 任务列表</h2>
+<ul class="contains-task-list" data-src-line="21" data-src-end="28">
+<li class="task-list-item"><input type="checkbox" class="task-list-checkbox" disabled="" aria-checked="false"> 未完成项</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-checkbox" disabled="" checked="" aria-checked="true"> 已完成项</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-checkbox" disabled="" checked="" aria-checked="true"> 大写 X 也算完成</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-checkbox" disabled="" aria-checked="false"> 含 <strong>强调</strong> 的项
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" class="task-list-checkbox" disabled="" checked="" aria-checked="true"> 嵌套的子任务</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-checkbox" disabled="" aria-checked="false"> 嵌套的未完成子任务</li>
+</ul>
+</li>
+<li>普通列表项（非任务）</li>
+</ul>
+<ol class="contains-task-list" data-src-line="29" data-src-end="31">
+<li class="task-list-item"><input type="checkbox" class="task-list-checkbox" disabled="" aria-checked="false"> 有序任务列表</li>
+<li class="task-list-item"><input type="checkbox" class="task-list-checkbox" disabled="" checked="" aria-checked="true"> 第二项已完成</li>
+</ol>
+<blockquote data-src-line="32" data-src-end="32">
+<p>注：<code>[ ]</code> 只有在列表项行首才识别；行内出现的 <code>[ ]</code> 不应变成复选框。</p>
+</blockquote>
+<h2 id="3-删除线与行内标记" tabindex="-1" data-src-line="34" data-src-end="34">3. 删除线与行内标记</h2>
+<p data-src-line="36" data-src-end="36"><s>删除线</s>、~单波浪号不删~、<strong>粗体</strong>、<em>斜体</em>、<em><strong>粗斜</strong></em>、<code>行内代码</code>、<kbd>Ctrl</kbd>+<kbd>C</kbd>。</p>
+<p data-src-line="38" data-src-end="38">H~2~O 与 E=mc^2^ 这类上下标不是 GFM 标准语法，默认应保持原文。</p>
+<h2 id="4-脚注" tabindex="-1" data-src-line="40" data-src-end="40">4. 脚注</h2>
+<p data-src-line="42" data-src-end="42">这里引用一个脚注<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，再来一个带多段的脚注<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>。</p>
+<h2 id="5-github-alerts" tabindex="-1" data-src-line="50" data-src-end="50">5. GitHub Alerts</h2>
+<div class="markdown-alert markdown-alert-note" data-src-line="52" data-src-end="53"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>这是一条 NOTE 提示，用于补充说明。</p>
+</div>
+<div class="markdown-alert markdown-alert-tip" data-src-line="55" data-src-end="56"><p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p><p>这是一条 TIP，提供更优做法。</p>
+</div>
+<div class="markdown-alert markdown-alert-important" data-src-line="58" data-src-end="59"><p class="markdown-alert-title"><svg class="octicon octicon-report mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v9.5A1.75 1.75 0 0 1 14.25 13H8.06l-2.573 2.573A1.458 1.458 0 0 1 3 14.543V13H1.75A1.75 1.75 0 0 1 0 11.25Zm1.75-.25a.25.25 0 0 0-.25.25v9.5c0 .138.112.25.25.25h2a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h6.5a.25.25 0 0 0 .25-.25v-9.5a.25.25 0 0 0-.25-.25Zm7 2.25v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Important</p><p>这是一条 IMPORTANT，必须知道的信息。</p>
+</div>
+<div class="markdown-alert markdown-alert-warning" data-src-line="61" data-src-end="62"><p class="markdown-alert-title"><svg class="octicon octicon-alert mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p><p>这是一条 WARNING，可能导致问题。</p>
+</div>
+<div class="markdown-alert markdown-alert-caution" data-src-line="64" data-src-end="65"><p class="markdown-alert-title"><svg class="octicon octicon-stop mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Caution</p><p>这是一条 CAUTION，可能导致数据丢失。</p>
+</div>
+<div class="markdown-alert markdown-alert-note" data-src-line="67" data-src-end="68"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>含 <strong>粗体</strong>、<code>代码</code> 与 <a href="https://example.com" rel="noopener noreferrer" data-md-external="1">链接</a> 的 Alert。</p>
+</div>
+<blockquote data-src-line="70" data-src-end="71">
+<p>普通引用不应被识别为 Alert。
+[!NOTE] 出现在第二行也不算。</p>
+</blockquote>
+<h2 id="6-数学公式" tabindex="-1" data-src-line="73" data-src-end="73">6. 数学公式</h2>
+<p data-src-line="75" data-src-end="75">行内公式：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mi>m</mi><msup><mi>c</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">E = mc^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0576em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord mathnormal">m</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>，以及 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup><mo>=</mo><msup><mi>c</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">a^2 + b^2 = c^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>。</p>
+<p data-src-line="77" data-src-end="77">行内公式含分数：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{1}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> 与下标 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">x_{i}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>。</p>
+<p data-src-line="79" data-src-end="79">块级公式：</p>
+<p class="katex-block" data-src-line="81" data-src-end="83"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mi mathvariant="normal">∞</mi></msubsup><msup><mi>e</mi><mrow><mo>−</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><mtext> </mtext><mi>d</mi><mi>x</mi><mo>=</mo><msqrt><mi>π</mi></msqrt></mrow><annotation encoding="application/x-tex">\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.3846em;vertical-align:-0.9703em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.4445em;position:relative;top:-0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4143em;"><span style="top:-1.7881em;margin-left:-0.4445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.8129em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9703em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.0369em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.1908em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8492em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span></span></span><span style="top:-2.8092em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1908em;"><span></span></span></span></span></span></span></span></span></span></p>
+<p data-src-line="85" data-src-end="85">矩阵：</p>
+<p class="katex-block" data-src-line="87" data-src-end="92"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo fence="true">(</mo><mtable rowspacing="0.16em" columnalign="center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>a</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>b</mi></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>c</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mi>d</mi></mstyle></mtd></mtr></mtable><mo fence="true">)</mo></mrow><annotation encoding="application/x-tex">\begin{pmatrix}
+a &amp; b \\
+c &amp; d
+\end{pmatrix}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">b</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span></span></span></p>
+<p data-src-line="94" data-src-end="94"><strong>错误公式</strong>（应显示为红色原文，不影响其他内容）：</p>
+<p class="katex-block" data-src-line="96" data-src-end="96"><span class="katex-error" title="ParseError: KaTeX parse error: Unexpected end of input in a macro argument, expected &#x27;}&#x27; at end of input: \frac{1}{
+" style="color:#cc0000">\frac{1}{
+</span></p>
+<p data-src-line="98" data-src-end="98"><strong>不应被当作公式的美元符</strong>：价格 $20,000 与 $30,000 不应变成数学模式。</p>
+<h2 id="7-mermaid-图表" tabindex="-1" data-src-line="100" data-src-end="100">7. Mermaid 图表</h2>
+<p data-src-line="102" data-src-end="102">流程图：</p>
+<div data-src-line="104" data-src-end="110" class="md-mermaid" data-mermaid-id="md-mermaid-1" data-code="Z3JhcGggVEQKICBBW+W8gOWni10gLS0+IEJ75Yik5patfQogIEIgLS0+fOaYr3wgQ1vmiafooYxdCiAgQiAtLT585ZCmfCBEW+e7k+adn10KICBDIC0tPiBECg=="></div>
+<p data-src-line="112" data-src-end="112">时序图：</p>
+<div data-src-line="114" data-src-end="120" class="md-mermaid" data-mermaid-id="md-mermaid-2" data-code="c2VxdWVuY2VEaWFncmFtCiAgcGFydGljaXBhbnQgVSBhcyDnlKjmiLcKICBwYXJ0aWNpcGFudCBBIGFzIOW6lOeUqAogIFUtPj5BOiDmiZPlvIDmlofku7YKICBBLT4+VTog5riy5p+T5q2j5paHCg=="></div>
+<p data-src-line="122" data-src-end="122">类图：</p>
+<div data-src-line="124" data-src-end="136" class="md-mermaid" data-mermaid-id="md-mermaid-3" data-code="Y2xhc3NEaWFncmFtCiAgY2xhc3MgRG9jTWV0YSB7CiAgICArc3RyaW5nIGRvY0lkCiAgICArc3RyaW5nIHBhdGgKICAgICtudW1iZXIgdmVyc2lvbgogIH0KICBjbGFzcyBUYWIgewogICAgK0RvY01ldGEgbWV0YQogICAgK3N0cmluZyBzdGF0dXMKICB9CiAgVGFiIC0tPiBEb2NNZXRhCg=="></div>
+<p data-src-line="138" data-src-end="138"><strong>错误图表</strong>（应显示错误占位，不拖垮全文）：</p>
+<div data-src-line="140" data-src-end="143" class="md-mermaid" data-mermaid-id="md-mermaid-4" data-code="Z3JhcGggVEQKICBBIC0tPiAtLT4gQgo="></div>
+<p data-src-line="145" data-src-end="145">中文标签图表：</p>
+<div data-src-line="147" data-src-end="153" class="md-mermaid" data-mermaid-id="md-mermaid-5" data-code="cGllIHRpdGxlIOa1i+ivleWIhuW4gwogICLljZXlhYMiIDogNDAKICAi57uE5Lu2IiA6IDI1CiAgIkUyRSIgOiAyMAogICLmiYvlt6UiIDogMTUK"></div>
+<h2 id="8-代码块" tabindex="-1" data-src-line="155" data-src-end="155">8. 代码块</h2>
+<pre data-src-line="157" data-src-end="161" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">export</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> function</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> greet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">  return</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> `Hello, ${</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">name</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">}!`</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<pre data-src-line="163" data-src-end="168" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">interface</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> DocMeta</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  docId</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> string</span></span>
+<span class="line"><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">  version</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> number</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<pre data-src-line="170" data-src-end="177" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">def</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> fibonacci</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(n: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) -> </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">    """返回第 n 个斐波那契数。"""</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    a, b </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">1</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> _ </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">in</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> range</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(n):</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">        a, b </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> b, a </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">+</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> b</span></span>
+<span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">    return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> a</span></span>
+<span class="line"></span></code></pre>
+<pre data-src-line="179" data-src-end="183" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">pub</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> fn</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> is_within</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(root</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> &#x26;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Path</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, p</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">:</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> &#x26;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">Path</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">-></span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0"> bool</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">    p</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">starts_with</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(root)</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<pre data-src-line="185" data-src-end="187" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">SELECT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> doc_id, </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">version</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> FROM</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> documents </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">WHERE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> stale </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span></code></pre>
+<pre data-src-line="189" data-src-end="191" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">pnpm</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> --dir</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> src/ui</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF"> build</span></span>
+<span class="line"></span></code></pre>
+<pre data-src-line="193" data-src-end="195" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">{ </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">"appTheme"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"dark"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">"mdTheme"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">"paper"</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }</span></span>
+<span class="line"></span></code></pre>
+<pre data-src-line="197" data-src-end="199" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">.md-doc</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> { </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">--md-measure</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">46</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">rem</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">; }</span></span>
+<span class="line"></span></code></pre>
+<pre data-src-line="201" data-src-end="204" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#B31D28;--shiki-dark:#FDAEB7">- 旧的一行</span></span>
+<span class="line"><span style="--shiki-light:#22863A;--shiki-dark:#85E89D">+ 新的一行</span></span>
+<span class="line"></span></code></pre>
+<p data-src-line="206" data-src-end="206"><strong>未知语言</strong>（应渲染为纯文本代码块并记录警告）：</p>
+<pre class="md-code md-code--plain" data-src-line="208" data-src-end="211"><code class="language-zzz-unknown-lang">这不是任何已知语言
+fn main() {}
+</code></pre>
+<p data-src-line="213" data-src-end="213"><strong>无语言标识</strong>：</p>
+<pre class="md-code md-code--plain" data-src-line="215" data-src-end="217"><code>纯文本代码块
+</code></pre>
+<p data-src-line="219" data-src-end="219"><strong>长代码块</strong>（验证高亮不阻塞）：</p>
+<pre data-src-line="221" data-src-end="223" class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">const</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> arr</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> Array.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">from</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">({ length: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">200</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> }, (</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">_</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">, </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70">i</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">=></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8"> i </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583">*</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF"> 2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"></span></code></pre>
+<h2 id="9-相对资源" tabindex="-1" data-src-line="225" data-src-end="225">9. 相对资源</h2>
+<p data-src-line="227" data-src-end="227">同目录图片：</p>
+<p data-src-line="229" data-src-end="229"><img src="./resources/sample.png" alt="示例图片" loading="lazy" decoding="async" data-md-image="1"></p>
+<p data-src-line="231" data-src-end="231">带标题的图片：</p>
+<p data-src-line="233" data-src-end="233"><img src="./resources/sample.png" alt="带标题图片" title="图片标题" loading="lazy" decoding="async" data-md-image="1"></p>
+<p data-src-line="235" data-src-end="235">子目录图片：</p>
+<p data-src-line="237" data-src-end="237"><img src="./resources/sub/nested.png" alt="子目录图片" loading="lazy" decoding="async" data-md-image="1"></p>
+<p data-src-line="239" data-src-end="239">中文文件名图片：</p>
+<p data-src-line="241" data-src-end="241"><img src="./resources/%E4%B8%AD%E6%96%87%E5%9B%BE%E7%89%87.png" alt="中文名" loading="lazy" decoding="async" data-md-image="1"></p>
+<p data-src-line="243" data-src-end="243"><strong>缺失图片</strong>（应显示占位并保留原路径）：</p>
+<p data-src-line="245" data-src-end="245"><img src="./resources/does-not-exist.png" alt="不存在的图" loading="lazy" decoding="async" data-md-image="1"></p>
+<p data-src-line="247" data-src-end="247"><strong>路径越界</strong>（默认应被拒绝）：</p>
+<p data-src-line="249" data-src-end="249"><img src="../../outside.png" alt="越界图" loading="lazy" decoding="async" data-md-image="1"></p>
+<p data-src-line="251" data-src-end="251"><strong>损坏图片</strong>（0 字节）：</p>
+<p data-src-line="253" data-src-end="253"><img src="./resources/broken.png" alt="损坏图" loading="lazy" decoding="async" data-md-image="1"></p>
+<h2 id="10-原始-html" tabindex="-1" data-src-line="255" data-src-end="255">10. 原始 HTML</h2>
+<p data-src-line="257" data-src-end="257">内联 HTML：这是 <strong>粗体</strong> 与 <em>斜体</em>，还有 <code>代码</code>。</p>
+<p data-src-line="259" data-src-end="259">块级 HTML：</p>
+<div class="custom-block">
+  <p>自定义容器中的段落。</p>
+  <ul>
+    <li>列表项</li>
+  </ul>
+</div>
+<details>
+<summary>折叠内容</summary>
+<p data-src-line="271" data-src-end="271">折叠后的正文，支持 <strong>Markdown</strong> 语法。</p>
+</details>
+<p data-src-line="275" data-src-end="275">表格 HTML：</p>
+<table>
+  <thead><tr><th>列一</th><th>列二</th></tr></thead>
+  <tbody><tr><td>1</td><td>2</td></tr></tbody>
+</table>
+<h2 id="11-嵌套结构" tabindex="-1" data-src-line="282" data-src-end="282">11. 嵌套结构</h2>
+<blockquote data-src-line="284" data-src-end="291">
+<p>引用中的列表与代码：</p>
+<ol>
+<li>第一项</li>
+<li>第二项</li>
+</ol>
+<pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">console.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0">log</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">'in quote'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"></span></code></pre>
+</blockquote>
+<ul data-src-line="293" data-src-end="304">
+<li>
+<p>列表中的引用：</p>
+<blockquote>
+<p>引用内容。</p>
+</blockquote>
+</li>
+<li>
+<p>列表中的代码：</p>
+<pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e" tabindex="0"><code><span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF">print</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF">'hi'</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8">)</span></span>
+<span class="line"></span></code></pre>
+</li>
+<li>
+<p>列表中的表格：</p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h2 id="12-链接类型交叉供-fr-019-使用" tabindex="-1" data-src-line="305" data-src-end="305">12. 链接类型交叉（供 FR-019 使用）</h2>
+<ul data-src-line="307" data-src-end="313">
+<li>页内：<a href="#6-%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F">跳到公式</a></li>
+<li>本地 Markdown：<a href="./tabs/a.md">跳转到多标签样本</a></li>
+<li>带锚点：<a href="./tabs/a.md#%E7%AB%A0%E8%8A%82%E4%B8%80">跳转到 a.md 的章节</a></li>
+<li>附件：<a href="./resources/sample.png">示例图片</a></li>
+<li>外链：<a href="https://example.com" rel="noopener noreferrer" data-md-external="1">https://example.com</a></li>
+<li>邮件：<a href="mailto:test@example.com" rel="noopener noreferrer" data-md-external="1">mailto:test@example.com</a></li>
+<li>空链接：<a href="#"></a></li>
+</ul>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>脚注一的内容。 <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>脚注二的第一段。</p>
+<p>脚注二的第二段（缩进四个空格）。 <a href="#fnref2" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>

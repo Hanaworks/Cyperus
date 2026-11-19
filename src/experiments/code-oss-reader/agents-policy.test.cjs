@@ -1,0 +1,42 @@
+const assert = require('node:assert/strict')
+const { execFileSync } = require('node:child_process')
+const { existsSync } = require('node:fs')
+const { resolve } = require('node:path')
+const test = require('node:test')
+const { sourcePatches } = require('./agents-policy.cjs')
+const backend = require('./backend-policy.cjs')
+
+const upstream = resolve(__dirname, '../../../artifacts/code-oss/upstream')
+const tsPath = resolve(upstream, 'node_modules/typescript')
+const available = existsSync(tsPath)
+const revision = '6bab64e2d12b04d04c0d99c27ff166023efd1dda'
+
+test('pinned Reader transformations remove the Agents window launch and bundle roots', { skip: !available }, () => {
+  const ts = require(tsPath)
+  const patched = new Map()
+  for (const [path, patch] of Object.entries(sourcePatches)) {
+    const baseline = execFileSync('git', ['show', `${revision}:${path}`], { cwd: upstream, encoding: 'utf8' })
+    const source = backend.sourcePatches[path]?.(baseline, ts) ?? baseline
+    const generated = patch(source, ts)
+    assert.notEqual(generated, source, path)
+    assert.deepEqual(ts.createSourceFile(path, generated, ts.ScriptTarget.Latest, true).parseDiagnostics, [], path)
+    patched.set(path.split('/').at(-1), generated)
+  }
+  const app = patched.get('app.ts')
+  assert.doesNotMatch(app, /openAgentsWindow|args\['agents'\]/)
+  assert.match(app, /import \{ parseExternalOpenSessionLinkUri \}/)
+  assert.match(app, /!protocolUrl \|\| this\.isAgentsWindowProtocolUrl\(protocolUrl\.uri\)/)
+  assert.match(app, /if \(this\.isAgentsWindowProtocolUrl\(uri\)\) \{\s+return true;/)
+  assert.doesNotMatch(patched.get('launchMainService.ts'), /openAgentsWindow|args\['agents'\]/)
+  assert.doesNotMatch(patched.get('windowImpl.ts'), /vs\/sessions|sessions\.ico/)
+  assert.match(patched.get('windowImpl.ts'), /vs\/code\/electron-browser\/workbench\/workbench/)
+  const windows = patched.get('windowsMainService.ts')
+  assert.match(windows, /async openAgentsWindow\(\): Promise<ICodeWindow\[\]> \{\s+return \[\];/)
+  assert.match(windows, /lastSessionWindow\.workspace\.configPath, this\.environmentMainService\.agentSessionsWorkspace\)\) \{\s+return undefined;/)
+  assert.match(windows, /isSessionsWindow: false,/)
+  assert.doesNotMatch(patched.get('workspacesHistoryMainService.ts'), /sessions\.ico|args: '--agents'/)
+  assert.doesNotMatch(patched.get('index.ts'), /vs\/sessions\/(?:sessions\.desktop\.main|electron-browser\/sessions)'/)
+  assert.match(patched.get('resources.ts'), /return desktopResourcePatterns\.filter\(pattern => !pattern\.startsWith\('vs\/sessions\/'\)\);/)
+  assert.doesNotMatch(patched.get('gulpfile.vscode.ts'), /vs\/sessions\/|sessions\.ico/)
+  assert.match(patched.get('index.ts'), /vs\/workbench\/workbench\.desktop\.main/)
+})

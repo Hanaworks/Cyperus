@@ -21,14 +21,29 @@ test.describe('Phase 0 骨架冒烟', () => {
 
     // 外壳可见
     await expect(page.locator('.app-shell')).toBeVisible()
-    await expect(page.locator('.titlebar')).toContainText('Markdown 预览')
+    await expect(page.locator('.workbench-titlebar')).toContainText('Cyperus')
+    await expect(page.locator('.workbench-titlebar').getByRole('menubar')).toHaveCount(1)
+    await expect(page.getByRole('menubar', { name: '应用菜单' })).toBeVisible()
+    await expect(page.getByTestId('command-center')).toHaveCount(0)
+    const statusbar = page.getByRole('contentinfo')
+    await expect(statusbar.getByRole('combobox', { name: '界面主题', exact: true })).toBeVisible()
+    await expect(statusbar.getByRole('combobox', { name: '正文主题', exact: true })).toBeVisible()
+    await expect(statusbar.getByTestId('app-theme')).toHaveValue('light')
+    await expect(statusbar.getByTestId('md-theme')).toHaveValue('light')
+    await expect(page.locator('html')).toHaveAttribute('data-app-theme', 'light')
 
     // 走的是 mockBridge
-    await expect(page.locator('.badge')).toContainText('mock (fixtures)')
+    await expect(page.getByTestId('fixture-select')).toBeVisible()
 
-    // 环境信息面板渲染出来了（证明 IPC 往返成功）
-    await expect(page.locator('.panel').first()).toContainText('appVersion')
-    await expect(page.locator('.panel').first()).toContainText('0.1.0-mock')
+    // 通过帮助菜单读取实时桥接信息。
+    await page.getByTestId('menu-help').click()
+    await page.getByRole('menuitem', { name: '环境信息', exact: true }).click()
+    const diagnostics = statusbar.getByRole('dialog', { name: '环境信息', exact: true })
+    await expect(diagnostics).toBeVisible()
+    await expect(diagnostics).toContainText('应用版本')
+    await expect(diagnostics).toContainText('0.1.0-mock')
+    await page.keyboard.press('Escape')
+    await expect(diagnostics).toBeHidden()
 
     expect(errors, `页面有 JS 错误：\n${errors.join('\n')}`).toEqual([])
   })
@@ -36,8 +51,7 @@ test.describe('Phase 0 骨架冒烟', () => {
   test('fixtures 被正确收集并列出', async ({ page }) => {
     await page.goto('/')
 
-    const list = page.locator('.panel').nth(1)
-    await expect(list).toContainText('可用夹具')
+    const list = page.getByTestId('fixture-select')
 
     // 关键夹具都应出现（证明 import.meta.glob 的相对路径正确）
     for (const name of [

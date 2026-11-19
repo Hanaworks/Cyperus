@@ -1,0 +1,67 @@
+{
+  "name": "md-reader-experiment",
+  "displayName": "Cyperus Reader",
+  "description": "以 Markdown 预览为主的阅读工作台",
+  "publisher": "local-md-reader",
+  "version": "0.0.1",
+  "private": true,
+  "engines": { "vscode": "^1.100.0" },
+  "main": "./extension.cjs",
+  "l10n": "./l10n",
+  "activationEvents": ["onStartupFinished"],
+  "capabilities": { "untrustedWorkspaces": { "supported": true }, "virtualWorkspaces": false },
+  "contributes": {
+    "customEditors": [
+      { "viewType": "mdReader.preview", "displayName": "%markdownPreview%", "selector": [{ "filenamePattern": "*.md" }, { "filenamePattern": "*.markdown" }, { "filenamePattern": "*.mdown" }, { "filenamePattern": "*.mkd" }], "priority": "default" },
+      { "viewType": "mdReader.htmlPreview", "displayName": "%htmlPreview%", "selector": [{ "filenamePattern": "*.html" }, { "filenamePattern": "*.htm" }], "priority": "default" }
+    ],
+    "commands": [
+      { "command": "mdReader.open", "title": "%openMarkdown%", "category": "%reader%", "icon": "$(go-to-file)" },
+      { "command": "mdReader.folder", "title": "%openFolder%", "category": "%reader%", "icon": "$(folder-opened)" },
+      { "command": "mdReader.editSource", "title": "%editSource%", "category": "%reader%", "icon": "$(edit)" },
+      { "command": "mdReader.preview", "title": "%returnMarkdown%", "category": "%reader%", "icon": "$(open-preview)" },
+      { "command": "mdReader.previewHtml", "title": "%returnHtml%", "category": "%reader%", "icon": "$(open-preview)" },
+      { "command": "mdReader.openExternal", "title": "%openExternal%", "category": "%reader%", "icon": "$(link-external)" },
+      { "command": "mdReader.chooseExternal", "title": "%chooseExternal%", "category": "%reader%" },
+      { "command": "mdReader.revealFile", "title": "%revealFile%", "category": "%reader%", "icon": "$(folder-opened)" },
+      { "command": "mdReader.search", "title": "%search%", "category": "%reader%", "icon": "$(search)" },
+      { "command": "mdReader.nextMatch", "title": "%nextMatch%", "category": "%reader%", "icon": "$(arrow-down)" },
+      { "command": "mdReader.previousMatch", "title": "%previousMatch%", "category": "%reader%", "icon": "$(arrow-up)" },
+      { "command": "mdReader.theme", "title": "%theme%", "category": "%reader%" }
+    ],
+    "viewsContainers": { "activitybar": [
+      { "id": "mdReader-outline", "title": "%outline%", "icon": "icons/outline.svg" }
+    ] },
+    "views": {
+      "mdReader-outline": [{ "id": "mdReader.outlineTree", "name": "%outline%" }]
+    },
+    "viewsWelcome": [
+      { "view": "mdReader.outlineTree", "contents": "%outlineWelcome%" }
+    ],
+    "menus": {
+      "editor/title": [
+        { "command": "mdReader.editSource", "when": "resourceScheme == file && (activeCustomEditorId == mdReader.preview || activeCustomEditorId == mdReader.htmlPreview)", "group": "navigation@1" },
+        { "command": "mdReader.preview", "when": "resourceScheme == file && resourceLangId == markdown && activeCustomEditorId != mdReader.preview", "group": "navigation@1" },
+        { "command": "mdReader.previewHtml", "when": "resourceScheme == file && resourceExtname =~ /\\.html?$/i && activeCustomEditorId != mdReader.htmlPreview", "group": "navigation@1" },
+        { "command": "mdReader.openExternal", "when": "resourceScheme == file", "group": "navigation@2" },
+        { "command": "mdReader.revealFile", "when": "resourceScheme == file", "group": "navigation@3" },
+        { "command": "mdReader.chooseExternal", "when": "resourceScheme == file", "group": "2_reader@1" }
+      ],
+      "explorer/context": [
+        { "command": "mdReader.editSource", "when": "resourceScheme == file && resourceExtname =~ /\\.(md|markdown|mdown|mkd|html?)$/i && !explorerResourceIsFolder", "group": "navigation@20" },
+        { "command": "mdReader.openExternal", "when": "resourceScheme == file && !explorerResourceIsFolder", "group": "navigation@21" },
+        { "command": "mdReader.chooseExternal", "when": "resourceScheme == file && !explorerResourceIsFolder", "group": "navigation@22" },
+        { "command": "mdReader.revealFile", "when": "resourceScheme == file && !explorerResourceIsFolder", "group": "navigation@23" }
+      ],
+      "view/title": [
+        { "command": "mdReader.folder", "when": "view == workbench.explorer.fileView", "group": "navigation@1" }
+      ]
+    },
+    "keybindings": [
+      { "command": "mdReader.search", "key": "ctrl+f", "when": "activeCustomEditorId == mdReader.preview" },
+      { "command": "mdReader.nextMatch", "key": "f3", "when": "activeCustomEditorId == mdReader.preview" },
+      { "command": "mdReader.previousMatch", "key": "shift+f3", "when": "activeCustomEditorId == mdReader.preview" }
+    ],
+    "themes": [{ "label": "Reader Light Purple", "uiTheme": "vs", "path": "theme.json" }]
+  }
+}

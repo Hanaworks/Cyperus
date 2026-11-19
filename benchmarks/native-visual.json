@@ -1,0 +1,229 @@
+{
+  "complete": true,
+  "date": "2026-11-05T02:23:38.179Z",
+  "env": {
+    "appVersion": "0.1.0",
+    "locale": "C.UTF-8",
+    "os": "windows",
+    "osVersion": "Windows",
+    "rustVersion": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "tauriVersion": "2.12.5",
+    "webviewVersion": "156.0.4314.58"
+  },
+  "errors": [],
+  "fixtures": [
+    {
+      "hasMath": false,
+      "hasShiki": true,
+      "headings": 17,
+      "images": [
+        {
+          "alt": "本地图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        },
+        {
+          "alt": "带标题的图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        }
+      ],
+      "imagesLoaded": 2,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "name": "basic.md",
+      "parseCount": 1,
+      "parseMs": 55.70000004768371,
+      "themeDidNotParse": true
+    },
+    {
+      "hasMath": true,
+      "hasShiki": true,
+      "headings": 13,
+      "images": [
+        {
+          "alt": "示例图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        },
+        {
+          "alt": "带标题图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        },
+        {
+          "alt": "子目录图片",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csub%5Cnested.png",
+          "width": 100
+        },
+        {
+          "alt": "中文名",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5C%E4%B8%AD%E6%96%87%E5%9B%BE%E7%89%87.png",
+          "width": 160
+        },
+        {
+          "alt": "不存在的图（资源不可用）",
+          "src": null,
+          "width": 0
+        },
+        {
+          "alt": "越界图（资源不可用）",
+          "src": null,
+          "width": 0
+        },
+        {
+          "alt": "损坏图（无法显示）",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Cbroken.png",
+          "width": 0
+        }
+      ],
+      "imagesLoaded": 4,
+      "mermaidDone": 4,
+      "mermaidErrors": 1,
+      "name": "extended.md",
+      "parseCount": 2,
+      "parseMs": 143,
+      "themeDidNotParse": true
+    },
+    {
+      "hasMath": true,
+      "hasShiki": true,
+      "headings": 20,
+      "images": [
+        {
+          "alt": "小图",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        }
+      ],
+      "imagesLoaded": 1,
+      "mermaidDone": 1,
+      "mermaidErrors": 0,
+      "name": "theme.md",
+      "parseCount": 3,
+      "parseMs": 3.799999952316284,
+      "themeDidNotParse": true
+    },
+    {
+      "hasMath": false,
+      "hasShiki": true,
+      "headings": 19,
+      "images": [],
+      "imagesLoaded": 0,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "name": "cjk-typography.md",
+      "parseCount": 4,
+      "parseMs": 1.7000000476837158,
+      "themeDidNotParse": true
+    },
+    {
+      "hasMath": false,
+      "hasShiki": false,
+      "headings": 13,
+      "images": [
+        {
+          "alt": "图片链接",
+          "src": "http://asset.localhost/D%3A%5CProject%5CMarkdown%5Cfixtures%5Cresources%5Csample.png",
+          "width": 160
+        }
+      ],
+      "imagesLoaded": 1,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "name": "links.md",
+      "parseCount": 5,
+      "parseMs": 2.799999952316284,
+      "themeDidNotParse": true
+    },
+    {
+      "hasMath": true,
+      "hasShiki": true,
+      "headings": 9,
+      "images": [
+        {
+          "alt": "图片（资源不可用）",
+          "src": null,
+          "width": 0
+        },
+        {
+          "alt": "图片（资源不可用）",
+          "src": null,
+          "width": 0
+        },
+        {
+          "alt": "图片（资源不可用）",
+          "src": null,
+          "width": 0
+        }
+      ],
+      "imagesLoaded": 0,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "name": "html-safety.md",
+      "parseCount": 6,
+      "parseMs": 20,
+      "themeDidNotParse": true
+    },
+    {
+      "hasMath": false,
+      "hasShiki": false,
+      "headings": 4,
+      "images": [],
+      "imagesLoaded": 0,
+      "mermaidDone": 0,
+      "mermaidErrors": 0,
+      "name": "tabs/a.md",
+      "parseCount": 7,
+      "parseMs": 0.20000004768371585,
+      "themeDidNotParse": true
+    }
+  ],
+  "ipc": [
+    {
+      "byteLength": 103414,
+      "expectedBytes": 103414,
+      "isArrayBuffer": true,
+      "name": "100kb",
+      "ok": true,
+      "readMs": 4
+    },
+    {
+      "byteLength": 1049596,
+      "expectedBytes": 1049596,
+      "isArrayBuffer": true,
+      "name": "1mb",
+      "ok": true,
+      "readMs": 17
+    },
+    {
+      "byteLength": 10486765,
+      "expectedBytes": 10486765,
+      "isArrayBuffer": true,
+      "name": "10mb",
+      "ok": true,
+      "readMs": 101.69999992847444
+    },
+    {
+      "byteLength": 52429974,
+      "expectedBytes": 52429974,
+      "isArrayBuffer": true,
+      "name": "50mb",
+      "ok": true,
+      "readMs": 466.60000002384186
+    }
+  ],
+  "stage": "complete",
+  "workbench": {
+    "cacheDidNotParse": true,
+    "childEntries": 20,
+    "deduplicated": true,
+    "outsideRejected": true,
+    "position": 700,
+    "restored": 700,
+    "root": "D:\\Project\\Markdown\\fixtures",
+    "rootEntries": 9,
+    "searchCount": 1,
+    "tabs": 2
+  }
+}

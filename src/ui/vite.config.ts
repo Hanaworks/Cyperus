@@ -1,13 +1,36 @@
+import { createReadStream, realpathSync } from 'node:fs'
+import { extname, resolve, sep } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue'
+import type { Plugin } from 'vite'
 // 用 vitest/config 的 defineConfig，才能在同一文件里声明 `test` 配置块。
 // 直接 import vite 的 defineConfig 会因 UserConfigExport 不含 test 字段而类型报错。
 import { defineConfig } from 'vitest/config'
 
+function fixtureAssets(): Plugin {
+  return {
+    name: 'local-fixture-assets', apply: 'serve',
+    configureServer(server) {
+      const root = realpathSync(fileURLToPath(new URL('../../fixtures', import.meta.url)))
+      server.middlewares.use('/__fixtures', (request, response) => {
+        try {
+          const pathname = new URL(request.url ?? '/', 'http://localhost').pathname
+          const path = realpathSync(resolve(root, `.${decodeURIComponent(pathname)}`))
+          const types: Record<string, string> = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.svg': 'image/svg+xml' }
+          const mime = types[extname(path).toLowerCase()]
+          if (!path.startsWith(root + sep) || !mime) { response.statusCode = 403; response.end(); return }
+          response.setHeader('Content-Type', mime)
+          createReadStream(path).pipe(response)
+        } catch { response.statusCode = 404; response.end() }
+      })
+    },
+  }
+}
+
 // 端口与 src/host/tauri.conf.json 的 devUrl 必须一致。
 // strictPort: 端口被占用时立即失败，而不是静默换端口导致 Tauri 连错地址。
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), fixtureAssets()],
   clearScreen: false,
   resolve: {
     alias: {
@@ -15,6 +38,7 @@ export default defineConfig({
     },
   },
   server: {
+    headers: { 'Content-Security-Policy': "img-src 'self' data: blob:" },
     host: '127.0.0.1',
     port: 1420,
     strictPort: true,
@@ -53,8 +77,9 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    // mermaid 体积大且仅在含图表时才需要，不预构建
-    exclude: ['mermaid'],
+    // Vite 8 直接服务 Mermaid 的传递 CJS 依赖 dayjs 会缺少 default 导出。
+    // 开发期预构建其依赖；生产代码仍保持动态导入。
+    include: ['mermaid'],
   },
   test: {
     // 纯逻辑测试默认 node 环境（快）；需要 DOM 的测试在文件顶部用

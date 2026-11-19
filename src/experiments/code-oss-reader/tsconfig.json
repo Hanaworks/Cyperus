@@ -1,0 +1,9 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "typeRoots": ["../../ui/node_modules/@types"],
+    "paths": { "vue": ["../../ui/node_modules/vue"] }
+  },
+  "include": ["webview/**/*.ts", "webview/**/*.vue"]
+}

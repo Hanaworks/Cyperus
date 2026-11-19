@@ -26,6 +26,9 @@
   "formatter": {
     "enabled": false
   },
+  "html": {
+    "experimentalFullSupportEnabled": true
+  },
   "javascript": {
     "formatter": {
       "quoteStyle": "single",

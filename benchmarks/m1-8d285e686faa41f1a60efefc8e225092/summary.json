@@ -1,0 +1,90 @@
+{
+  "date": "2026-11-06T18:19:10.5554494Z",
+  "profile": "D:\\Project\\Markdown\\benchmarks\\m1-8d285e686faa41f1a60efefc8e225092",
+  "executable_sha256": "FD6B6487559FEE34730CEC0E00736404F5640BA6E1734904AFC4C8872037D0C2",
+  "performance": {
+    "complete": true,
+    "date": "2026-11-06T18:19:11.898Z",
+    "errors": [],
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 152531,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 152531,
+          "storedHtmlBytes": 0
+        },
+        "firstReadableMs": 350.8000000715256,
+        "htmlBytes": 152531,
+        "mountedElements": 1154,
+        "parseMs": 111.69999992847444,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\100kb.md",
+        "scrollRafP95Ms": 31.90000009536743,
+        "segments": 0
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 1586191,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 1586191,
+          "storedHtmlBytes": 0
+        },
+        "firstReadableMs": 243,
+        "htmlBytes": 1586191,
+        "mountedElements": 12282,
+        "parseMs": 142.5,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\1mb.md",
+        "scrollRafP95Ms": 32.299999952316284,
+        "segments": 0
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 15899778,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 15899778,
+          "storedHtmlBytes": 0
+        },
+        "firstReadableMs": 1031.899999976158,
+        "htmlBytes": 15899778,
+        "mountedElements": 1191,
+        "parseMs": 774.7999999523163,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\10mb.md",
+        "scrollRafP95Ms": 32,
+        "segments": 901
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 0,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 0,
+          "storedHtmlBytes": 79833673
+        },
+        "firstReadableMs": 5386.600000023842,
+        "htmlBytes": 79833673,
+        "mountedElements": 4964,
+        "parseMs": 3349.2999999523163,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md",
+        "scrollRafP95Ms": 67.90000009536743,
+        "segments": 4487
+      }
+    ],
+    "mode": "performance",
+    "stage": "idle-ready"
+  },
+  "idle": {
+    "rootAlive": "True",
+    "durationMs": 60064.756,
+    "samples": 85,
+    "cpuMs": 628.0,
+    "rssMiB": 667.234375
+  },
+  "complete": true
+}

@@ -3,6 +3,10 @@
 > 覆盖 FR-009 / FR-013(P1)/ UC-05 / AC-07 / 需求文档 §3.2。
 > 代码落点:`src/ui/src/core/theme/**`、`src/ui/src/styles/**`、`src/ui/src/stores/settings.ts`。
 
+2026-11-06当前实现：按用户要求默认界面与正文均为浅色（light/light），白色阅读面配紫色强调，细节见 [UI设计基线](./16-ui-design-draft.md)。底部可分别切换外壳浅/深色和正文浅/深/纸张；两者仍独立。本文后续系统跟随、持久化与完整设置规格未据此视为完成。
+
+2026-11-07 更新：双主题、正文 12–24 px 字号、侧栏宽度与当前面板已接入 `core/documents/workspaceState.ts` / `core/ipc/stateBridge.ts` 和宿主 `workspace.rs`；查看菜单可调整 / 重置字号。默认仍为 15 px，未改动配色和布局基线。浏览器重载与原生状态保存 / 读取通过，见 [阅读流程完整性记录](../dev/reader-completion-plan.md)。系统跟随、完整设置面板及窗口几何恢复仍待后续。
+
 ---
 
 ## 1. 两套主题的边界(重申,防止实现时混)

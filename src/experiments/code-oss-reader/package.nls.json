@@ -1,0 +1,19 @@
+{
+  "reader": "Reader",
+  "markdownPreview": "Markdown Preview",
+  "htmlPreview": "Static HTML Preview",
+  "openMarkdown": "Open Markdown File",
+  "openFolder": "Open Folder",
+  "editSource": "Edit Source",
+  "returnMarkdown": "Return to Markdown Preview",
+  "returnHtml": "Return to Static HTML Preview",
+  "openExternal": "Open in External Application",
+  "chooseExternal": "Open With…",
+  "revealFile": "Open Containing Folder",
+  "search": "Find in Preview",
+  "nextMatch": "Next Match",
+  "previousMatch": "Previous Match",
+  "theme": "Change Reading Theme",
+  "outline": "Document Outline",
+  "outlineWelcome": "Open a Markdown document to see its outline."
+}

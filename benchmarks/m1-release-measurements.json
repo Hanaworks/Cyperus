@@ -1,0 +1,944 @@
+[
+  {
+    "round": 1,
+    "fixture": "100kb.md",
+    "profile": "m1-01d0e24c28734daab383d20693f5241a",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 1533.1338,
+    "peakMiB": 601.4921875,
+    "idle": {
+      "rssMiB": 561.6171875,
+      "samples": 86,
+      "cpuMs": 581.0,
+      "durationMs": 60283.096,
+      "rootAlive": "True"
+    },
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 152531,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 152531,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:45:38.23Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:45:38.194Z",
+        "firstReadableMs": 358.1999999284744,
+        "fullRenderMs": 394.09999990463257,
+        "fullTraversalMs": 35.89999997615814,
+        "htmlBytes": 152531,
+        "mountedElements": 1154,
+        "openedAt": "2026-11-06T18:45:37.836Z",
+        "parseMs": 114.70000004768372,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\100kb.md",
+        "scrollRafP95Ms": 21.199999928474423,
+        "segments": 0,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 152531,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 152531,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:45:38.891Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:45:38.855Z",
+        "firstReadableMs": 57.60000002384186,
+        "fullRenderMs": 94.5,
+        "fullTraversalMs": 36.89999997615814,
+        "htmlBytes": 152531,
+        "mountedElements": 1154,
+        "openedAt": "2026-11-06T18:45:38.797Z",
+        "parseMs": 10.300000071525574,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\100kb.md",
+        "scrollRafP95Ms": 19,
+        "segments": 0,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 1,
+    "fixture": "1mb.md",
+    "profile": "m1-45fa49215e0641c384c3bfa0039bfcbd",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 1751.1236,
+    "peakMiB": 734.9375,
+    "idle": null,
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 1586191,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 1586191,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:46:47.085Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:46:47.059Z",
+        "firstReadableMs": 566.6999999284744,
+        "fullRenderMs": 592.3999999761581,
+        "fullTraversalMs": 25.700000047683716,
+        "htmlBytes": 1586191,
+        "mountedElements": 12282,
+        "openedAt": "2026-11-06T18:46:46.492Z",
+        "parseMs": 246.80000007152557,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\1mb.md",
+        "scrollRafP95Ms": 29.700000047683716,
+        "segments": 0,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 1586191,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 1586191,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:46:47.98Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:46:47.954Z",
+        "firstReadableMs": 182.69999992847443,
+        "fullRenderMs": 208.39999997615817,
+        "fullTraversalMs": 25.600000023841854,
+        "htmlBytes": 1586191,
+        "mountedElements": 12282,
+        "openedAt": "2026-11-06T18:46:47.772Z",
+        "parseMs": 87.09999990463257,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\1mb.md",
+        "scrollRafP95Ms": 26.799999952316284,
+        "segments": 0,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 1,
+    "fixture": "10mb.md",
+    "profile": "m1-150fae96b60a43b3afca819e682d0d5d",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 2630.1714,
+    "peakMiB": 1079.9140625,
+    "idle": null,
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 15899778,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 15899778,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:46:58.385Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 901,
+          "visitedSegments": 901
+        },
+        "firstReadableAt": "2026-11-06T18:46:51.556Z",
+        "firstReadableMs": 1591.5,
+        "fullRenderMs": 8419.700000047684,
+        "fullTraversalMs": 6828.100000023842,
+        "htmlBytes": 15899778,
+        "mountedElements": 1191,
+        "openedAt": "2026-11-06T18:46:49.965Z",
+        "parseMs": 1002.600000023842,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\10mb.md",
+        "scrollRafP95Ms": 20.5,
+        "segments": 901,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 15899778,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 15899778,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:47:06.325Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 901,
+          "visitedSegments": 901
+        },
+        "firstReadableAt": "2026-11-06T18:46:59.954Z",
+        "firstReadableMs": 1005.600000023842,
+        "fullRenderMs": 7376.899999976158,
+        "fullTraversalMs": 6371.299999952316,
+        "htmlBytes": 15899778,
+        "mountedElements": 1191,
+        "openedAt": "2026-11-06T18:46:58.948Z",
+        "parseMs": 726.5,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\10mb.md",
+        "scrollRafP95Ms": 18.700000047683716,
+        "segments": 901,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 1,
+    "fixture": "50mb.md",
+    "profile": "m1-07d07285366d4674b9289ea5eb6f818f",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 7512.9755,
+    "peakMiB": 2636.421875,
+    "idle": null,
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 0,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 0,
+          "storedHtmlBytes": 79833673
+        },
+        "completedAt": "2026-11-06T18:47:40.559Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 4487,
+          "visitedSegments": 4487
+        },
+        "firstReadableAt": "2026-11-06T18:47:14.729Z",
+        "firstReadableMs": 6336,
+        "fullRenderMs": 32166.30000007153,
+        "fullTraversalMs": 25830.30000007153,
+        "htmlBytes": 79833673,
+        "mountedElements": 4912,
+        "openedAt": "2026-11-06T18:47:08.393Z",
+        "parseMs": 3969.8000000715256,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md",
+        "scrollRafP95Ms": 47.29999995231629,
+        "segments": 4487,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 0,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 0,
+          "storedHtmlBytes": 79833673
+        },
+        "completedAt": "2026-11-06T18:48:14.166Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 4487,
+          "visitedSegments": 4487
+        },
+        "firstReadableAt": "2026-11-06T18:47:47.91Z",
+        "firstReadableMs": 5829,
+        "fullRenderMs": 32084.700000047684,
+        "fullTraversalMs": 26255.700000047684,
+        "htmlBytes": 79833673,
+        "mountedElements": 4912,
+        "openedAt": "2026-11-06T18:47:42.081Z",
+        "parseMs": 3632.799999952316,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md",
+        "scrollRafP95Ms": 45.699999928474426,
+        "segments": 4487,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 2,
+    "fixture": "100kb.md",
+    "profile": "m1-e02aaeddbfc6498292635d076b70a5ff",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 1539.9461,
+    "peakMiB": 594.49609375,
+    "idle": {
+      "rssMiB": 562.62109375,
+      "samples": 86,
+      "cpuMs": 409.0,
+      "durationMs": 60357.733,
+      "rootAlive": "True"
+    },
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 152531,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 152531,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:48:17.529Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:48:17.493Z",
+        "firstReadableMs": 382.6999999284744,
+        "fullRenderMs": 419.10000002384186,
+        "fullTraversalMs": 36.40000009536743,
+        "htmlBytes": 152531,
+        "mountedElements": 1154,
+        "openedAt": "2026-11-06T18:48:17.11Z",
+        "parseMs": 117.39999997615814,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\100kb.md",
+        "scrollRafP95Ms": 19.799999952316284,
+        "segments": 0,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 152531,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 152531,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:48:18.177Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:48:18.14Z",
+        "firstReadableMs": 45.09999990463257,
+        "fullRenderMs": 81.89999997615814,
+        "fullTraversalMs": 36.800000071525574,
+        "htmlBytes": 152531,
+        "mountedElements": 1154,
+        "openedAt": "2026-11-06T18:48:18.095Z",
+        "parseMs": 12.100000023841858,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\100kb.md",
+        "scrollRafP95Ms": 18.90000009536743,
+        "segments": 0,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 2,
+    "fixture": "1mb.md",
+    "profile": "m1-7e4512a0658b494c8ab77c6fe21f4f1e",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 1676.5785,
+    "peakMiB": 745.140625,
+    "idle": null,
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 1586191,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 1586191,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:49:26.133Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:49:26.112Z",
+        "firstReadableMs": 544,
+        "fullRenderMs": 565.3999999761581,
+        "fullTraversalMs": 21.399999976158146,
+        "htmlBytes": 1586191,
+        "mountedElements": 12282,
+        "openedAt": "2026-11-06T18:49:25.568Z",
+        "parseMs": 246.39999997615817,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\1mb.md",
+        "scrollRafP95Ms": 26.100000023841854,
+        "segments": 0,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 1586191,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 1586191,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:49:27.016Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:49:26.987Z",
+        "firstReadableMs": 172.69999992847443,
+        "fullRenderMs": 201.59999990463257,
+        "fullTraversalMs": 28.899999976158146,
+        "htmlBytes": 1586191,
+        "mountedElements": 12282,
+        "openedAt": "2026-11-06T18:49:26.815Z",
+        "parseMs": 82.70000004768372,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\1mb.md",
+        "scrollRafP95Ms": 20.90000009536743,
+        "segments": 0,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 2,
+    "fixture": "10mb.md",
+    "profile": "m1-9d85d44768fc4447bc1c2a41f5c6330f",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 2452.5946,
+    "peakMiB": 1084.890625,
+    "idle": null,
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 15899778,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 15899778,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:49:36.955Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 901,
+          "visitedSegments": 901
+        },
+        "firstReadableAt": "2026-11-06T18:49:30.425Z",
+        "firstReadableMs": 1465.100000023842,
+        "fullRenderMs": 7994.600000023842,
+        "fullTraversalMs": 6529.5,
+        "htmlBytes": 15899778,
+        "mountedElements": 1191,
+        "openedAt": "2026-11-06T18:49:28.96Z",
+        "parseMs": 940.600000023842,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\10mb.md",
+        "scrollRafP95Ms": 21.200000047683716,
+        "segments": 901,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 15899778,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 15899778,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:49:44.859Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 901,
+          "visitedSegments": 901
+        },
+        "firstReadableAt": "2026-11-06T18:49:38.486Z",
+        "firstReadableMs": 961.899999976158,
+        "fullRenderMs": 7335,
+        "fullTraversalMs": 6373.100000023842,
+        "htmlBytes": 15899778,
+        "mountedElements": 1191,
+        "openedAt": "2026-11-06T18:49:37.524Z",
+        "parseMs": 708.4000000953674,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\10mb.md",
+        "scrollRafP95Ms": 18.700000047683716,
+        "segments": 901,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 2,
+    "fixture": "50mb.md",
+    "profile": "m1-f02719c52c6f41129710a0ab3c1e3b0b",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 7271.4469,
+    "peakMiB": 2594.296875,
+    "idle": null,
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 0,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 0,
+          "storedHtmlBytes": 79833673
+        },
+        "completedAt": "2026-11-06T18:50:19.547Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 4487,
+          "visitedSegments": 4487
+        },
+        "firstReadableAt": "2026-11-06T18:49:52.935Z",
+        "firstReadableMs": 6120.099999904633,
+        "fullRenderMs": 32731.5,
+        "fullTraversalMs": 26611.400000095367,
+        "htmlBytes": 79833673,
+        "mountedElements": 4912,
+        "openedAt": "2026-11-06T18:49:46.815Z",
+        "parseMs": 3885.600000023842,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md",
+        "scrollRafP95Ms": 47.79999995231629,
+        "segments": 4487,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 0,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 0,
+          "storedHtmlBytes": 79833673
+        },
+        "completedAt": "2026-11-06T18:50:53.746Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 4487,
+          "visitedSegments": 4487
+        },
+        "firstReadableAt": "2026-11-06T18:50:26.986Z",
+        "firstReadableMs": 5886.699999928474,
+        "fullRenderMs": 32647.19999992847,
+        "fullTraversalMs": 26760.5,
+        "htmlBytes": 79833673,
+        "mountedElements": 4912,
+        "openedAt": "2026-11-06T18:50:21.099Z",
+        "parseMs": 3676.400000095367,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md",
+        "scrollRafP95Ms": 41.39999997615814,
+        "segments": 4487,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 3,
+    "fixture": "100kb.md",
+    "profile": "m1-d82568df6ea54e699ff6ebbcb7a42c43",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 1563.809,
+    "peakMiB": 599.375,
+    "idle": {
+      "rssMiB": 565.26953125,
+      "samples": 86,
+      "cpuMs": 548.0,
+      "durationMs": 60484.541,
+      "rootAlive": "True"
+    },
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 152531,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 152531,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:50:57.226Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:50:57.189Z",
+        "firstReadableMs": 362.2999999523163,
+        "fullRenderMs": 398.7000000476837,
+        "fullTraversalMs": 36.40000009536743,
+        "htmlBytes": 152531,
+        "mountedElements": 1154,
+        "openedAt": "2026-11-06T18:50:56.827Z",
+        "parseMs": 117.40000009536745,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\100kb.md",
+        "scrollRafP95Ms": 19.600000023841854,
+        "segments": 0,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 152531,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 152531,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:50:57.871Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:50:57.835Z",
+        "firstReadableMs": 46.20000004768371,
+        "fullRenderMs": 83,
+        "fullTraversalMs": 36.79999995231629,
+        "htmlBytes": 152531,
+        "mountedElements": 1154,
+        "openedAt": "2026-11-06T18:50:57.789Z",
+        "parseMs": 8.700000047683716,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\100kb.md",
+        "scrollRafP95Ms": 19,
+        "segments": 0,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 3,
+    "fixture": "1mb.md",
+    "profile": "m1-44e4ef42596044758e25fe5b87db0992",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 1700.8806,
+    "peakMiB": 711.6875,
+    "idle": null,
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 1586191,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 1586191,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:52:05.997Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:52:05.975Z",
+        "firstReadableMs": 549.1000000238419,
+        "fullRenderMs": 571.8999999761581,
+        "fullTraversalMs": 22.799999952316284,
+        "htmlBytes": 1586191,
+        "mountedElements": 12282,
+        "openedAt": "2026-11-06T18:52:05.426Z",
+        "parseMs": 247,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\1mb.md",
+        "scrollRafP95Ms": 24.800000071525577,
+        "segments": 0,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 1586191,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 1586191,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:52:06.849Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 1,
+          "visitedSegments": 1
+        },
+        "firstReadableAt": "2026-11-06T18:52:06.827Z",
+        "firstReadableMs": 169.59999990463257,
+        "fullRenderMs": 191.59999990463257,
+        "fullTraversalMs": 22,
+        "htmlBytes": 1586191,
+        "mountedElements": 12282,
+        "openedAt": "2026-11-06T18:52:06.657Z",
+        "parseMs": 80.89999997615814,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\1mb.md",
+        "scrollRafP95Ms": 21.799999952316284,
+        "segments": 0,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 3,
+    "fixture": "10mb.md",
+    "profile": "m1-6f8dec3a31b74d9ab643687364fae86b",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 2628.9781,
+    "peakMiB": 1100.765625,
+    "idle": null,
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 15899778,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 15899778,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:52:16.731Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 901,
+          "visitedSegments": 901
+        },
+        "firstReadableAt": "2026-11-06T18:52:10.243Z",
+        "firstReadableMs": 1530.6999999284744,
+        "fullRenderMs": 8018.5,
+        "fullTraversalMs": 6487.800000071526,
+        "htmlBytes": 15899778,
+        "mountedElements": 1191,
+        "openedAt": "2026-11-06T18:52:08.713Z",
+        "parseMs": 973.899999976158,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\10mb.md",
+        "scrollRafP95Ms": 20.600000023841854,
+        "segments": 901,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 15899778,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 15899778,
+          "storedHtmlBytes": 0
+        },
+        "completedAt": "2026-11-06T18:52:24.625Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 901,
+          "visitedSegments": 901
+        },
+        "firstReadableAt": "2026-11-06T18:52:18.246Z",
+        "firstReadableMs": 950.2000000476836,
+        "fullRenderMs": 7329.600000023842,
+        "fullTraversalMs": 6379.299999952316,
+        "htmlBytes": 15899778,
+        "mountedElements": 1191,
+        "openedAt": "2026-11-06T18:52:17.295Z",
+        "parseMs": 704.7000000476837,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\10mb.md",
+        "scrollRafP95Ms": 19.299999952316284,
+        "segments": 901,
+        "temperature": "warm"
+      }
+    ]
+  },
+  {
+    "round": 3,
+    "fixture": "50mb.md",
+    "profile": "m1-d1385a52748741fcaa6949a9d4eb5356",
+    "sha256": "FF27824B88AC3D0687F9B1C8CACC45469AB91801F7DC921640954F03518F9231",
+    "coldStartupMs": 7210.7102,
+    "peakMiB": 2525.48046875,
+    "idle": null,
+    "measurements": [
+      {
+        "cache": {
+          "activeHtmlBytes": 0,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 0,
+          "storedHtmlBytes": 79833673
+        },
+        "completedAt": "2026-11-06T18:52:57.995Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 4487,
+          "visitedSegments": 4487
+        },
+        "firstReadableAt": "2026-11-06T18:52:32.527Z",
+        "firstReadableMs": 6058.800000071526,
+        "fullRenderMs": 31526,
+        "fullTraversalMs": 25467.19999992847,
+        "htmlBytes": 79833673,
+        "mountedElements": 4912,
+        "openedAt": "2026-11-06T18:52:26.469Z",
+        "parseMs": 3770.299999952316,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md",
+        "scrollRafP95Ms": 46.20000004768371,
+        "segments": 4487,
+        "temperature": "cold"
+      },
+      {
+        "cache": {
+          "activeHtmlBytes": 0,
+          "backgroundHtmlBytes": 0,
+          "budgetBytes": 50331648,
+          "overBudgetBytes": 0,
+          "retainedHtmlBytes": 0,
+          "storedHtmlBytes": 79833673
+        },
+        "completedAt": "2026-11-06T18:53:31.587Z",
+        "completion": {
+          "cancelled": false,
+          "graphs": {
+            "done": 0,
+            "error": 0,
+            "pending": 0
+          },
+          "totalSegments": 4487,
+          "visitedSegments": 4487
+        },
+        "firstReadableAt": "2026-11-06T18:53:05.068Z",
+        "firstReadableMs": 5608.5,
+        "fullRenderMs": 32128,
+        "fullTraversalMs": 26519.5,
+        "htmlBytes": 79833673,
+        "mountedElements": 4912,
+        "openedAt": "2026-11-06T18:52:59.459Z",
+        "parseMs": 3486.899999976158,
+        "path": "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md",
+        "scrollRafP95Ms": 40,
+        "segments": 4487,
+        "temperature": "warm"
+      }
+    ]
+  }
+]

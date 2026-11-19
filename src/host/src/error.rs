@@ -82,6 +82,12 @@ impl Serialize for AppError {
 
 impl From<std::io::Error> for AppError {
     fn from(e: std::io::Error) -> Self {
+        // Windows reports sharing/lock violations as Uncategorized, although
+        // these are expected transient failures while an editor saves a file.
+        #[cfg(windows)]
+        if matches!(e.raw_os_error(), Some(32 | 33)) {
+            return AppError::FileAccess(e.to_string());
+        }
         match e.kind() {
             std::io::ErrorKind::NotFound => AppError::FileNotFound(e.to_string()),
             std::io::ErrorKind::PermissionDenied => AppError::FileAccess(e.to_string()),
@@ -111,7 +117,7 @@ pub fn guard<T, F>(f: F) -> Result<T, AppError>
 where
     F: FnOnce() -> Result<T, AppError>,
 {
-    match std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)) {
+    let result = match std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)) {
         Ok(r) => r,
         Err(payload) => {
             let msg = payload
@@ -121,7 +127,11 @@ where
                 .unwrap_or_else(|| "未知 panic".to_string());
             Err(AppError::Internal(format!("命令执行时发生 panic: {msg}")))
         }
+    };
+    if let Err(error) = &result {
+        crate::diagnostics::record("command", error.code());
     }
+    result
 }
 
 #[cfg(test)]
@@ -131,14 +141,23 @@ mod tests {
     // 每个变体的错误码必须稳定：前端依赖这些字面量做分支。
     #[test]
     fn error_codes_are_stable() {
-        assert_eq!(AppError::FileNotFound("x".into()).code(), "E_FILE_NOT_FOUND");
+        assert_eq!(
+            AppError::FileNotFound("x".into()).code(),
+            "E_FILE_NOT_FOUND"
+        );
         assert_eq!(AppError::FileAccess("x".into()).code(), "E_FILE_ACCESS");
         assert_eq!(AppError::FileTooLarge(1).code(), "E_FILE_TOO_LARGE");
         assert_eq!(AppError::Encoding.code(), "E_ENCODING");
-        assert_eq!(AppError::PathForbidden("x".into()).code(), "E_PATH_FORBIDDEN");
+        assert_eq!(
+            AppError::PathForbidden("x".into()).code(),
+            "E_PATH_FORBIDDEN"
+        );
         assert_eq!(AppError::DocUnknown.code(), "E_DOC_UNKNOWN");
         assert_eq!(AppError::WatchFailed("x".into()).code(), "E_WATCH_FAILED");
-        assert_eq!(AppError::AssetForbidden("x".into()).code(), "E_ASSET_FORBIDDEN");
+        assert_eq!(
+            AppError::AssetForbidden("x".into()).code(),
+            "E_ASSET_FORBIDDEN"
+        );
         assert_eq!(AppError::UrlBlocked("x".into()).code(), "E_URL_BLOCKED");
         assert_eq!(AppError::Internal("x".into()).code(), "E_INTERNAL");
     }
@@ -150,7 +169,10 @@ mod tests {
         let v = serde_json::to_value(&err).expect("序列化失败");
         assert_eq!(v["code"], "E_FILE_NOT_FOUND");
         assert!(v["message"].as_str().unwrap().contains("D:/a.md"));
-        assert!(v.get("detail").is_some(), "detail 字段必须存在（可为 null）");
+        assert!(
+            v.get("detail").is_some(),
+            "detail 字段必须存在（可为 null）"
+        );
     }
 
     // 内部错误要带 detail，其余不带
@@ -171,6 +193,13 @@ mod tests {
 
         let e = std::io::Error::new(std::io::ErrorKind::PermissionDenied, "nope");
         assert_eq!(AppError::from(e).code(), "E_FILE_ACCESS");
+        #[cfg(windows)]
+        for code in [32, 33] {
+            assert_eq!(
+                AppError::from(std::io::Error::from_raw_os_error(code)).code(),
+                "E_FILE_ACCESS"
+            );
+        }
     }
 
     // guard 必须把 panic 转成 E_INTERNAL，而不是让进程崩溃

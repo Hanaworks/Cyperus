@@ -158,23 +158,29 @@ export function installHighlighter(md: MarkdownItType, ctx: HighlightContext): v
 
     const raw = token.info.trim().split(/\s+/)[0]
     const lang = raw ? resolveLang(raw, DEFAULT_ALIASES) : undefined
+    const sourceAttrs = ['data-src-line', 'data-src-end']
+      .map((name) => {
+        const value = token.attrGet(name)
+        return value === null ? '' : ` ${name}="${md.utils.escapeHtml(String(value))}"`
+      })
+      .join('')
 
     // mermaid：T06 的 augment 规则会把它改成占位 div；此处先退化为代码块
     if (lang === 'mermaid') {
       const escaped = md.utils.escapeHtml(token.content)
-      return `<pre class="md-code md-code--mermaid"><code class="language-mermaid">${escaped}</code></pre>\n`
+      return `<pre class="md-code md-code--mermaid"${sourceAttrs}><code class="language-mermaid">${escaped}</code></pre>\n`
     }
 
     const highlighted = highlight(token.content, token.info)
 
     if (highlighted) {
-      // Shiki 已产出完整 pre，直接使用
-      return `${highlighted}\n`
+      // Shiki 已产出完整 pre；源码行标记必须在外层 pre，而不是内部 code。
+      return `${highlighted.replace(/<pre(?=[\s>])/, `<pre${sourceAttrs}`)}\n`
     }
 
     // 降级：纯文本代码块
     const escaped = md.utils.escapeHtml(token.content)
     const langAttr = raw ? ` class="language-${md.utils.escapeHtml(raw)}"` : ''
-    return `<pre class="md-code md-code--plain"><code${langAttr}>${escaped}</code></pre>\n`
+    return `<pre class="md-code md-code--plain"${sourceAttrs}><code${langAttr}>${escaped}</code></pre>\n`
   }
 }

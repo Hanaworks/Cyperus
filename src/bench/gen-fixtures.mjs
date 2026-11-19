@@ -226,11 +226,18 @@ function genMermaid100() {
 
 function genCodeHeavy() {
   const blocks = []
-  for (let i = 1; i <= 200; i += 1) {
+  const blockCount = 200
+  const bytesPerBlock = Math.ceil((2 * 1024 * 1024) / blockCount)
+  for (let i = 1; i <= blockCount; i += 1) {
     const [lang, code] = CODE_SNIPPETS[i % CODE_SNIPPETS.length]
-    blocks.push(`### 代码块 ${i}（${lang}）\n\n\`\`\`${lang}\n${code}\n// 块编号 ${i}\n\`\`\`\n`)
+    const prefix = `### 代码块 ${i}（${lang}）\n\n\`\`\`${lang}\n`
+    const suffix = `// 块编号 ${i}\n\`\`\`\n`
+    const snippet = `${code}\n\n`
+    const overhead = Buffer.byteLength(prefix + suffix, 'utf8')
+    const repeats = Math.max(1, Math.ceil((bytesPerBlock - overhead) / Buffer.byteLength(snippet, 'utf8')))
+    blocks.push(prefix + snippet.repeat(repeats) + suffix)
   }
-  return `# 代码密集文档\n\n200 个代码块，总计数 MB。用于验证 Shiki 高亮的性能与内存。\n\n${blocks.join('\n')}`
+  return `# 代码密集文档\n\n200 个代码块，总计约 2 MiB。用于验证 Shiki 高亮的性能与内存。\n\n${blocks.join('\n')}`
 }
 
 function genMathHeavy() {

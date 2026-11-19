@@ -1,0 +1,19 @@
+{
+  "reader": "阅读器",
+  "markdownPreview": "Markdown 预览",
+  "htmlPreview": "静态 HTML 预览",
+  "openMarkdown": "打开 Markdown 文件",
+  "openFolder": "打开文件夹",
+  "editSource": "编辑源码",
+  "returnMarkdown": "返回 Markdown 预览",
+  "returnHtml": "返回静态 HTML 预览",
+  "openExternal": "用外部应用打开",
+  "chooseExternal": "选择打开方式…",
+  "revealFile": "打开所在文件夹",
+  "search": "在正文中查找",
+  "nextMatch": "下一个匹配",
+  "previousMatch": "上一个匹配",
+  "theme": "切换正文主题",
+  "outline": "文章大纲",
+  "outlineWelcome": "打开 Markdown 文档后显示文章大纲。"
+}

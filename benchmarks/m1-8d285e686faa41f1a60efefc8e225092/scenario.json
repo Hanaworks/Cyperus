@@ -1,0 +1,9 @@
+{
+  "files": [
+    "D:\\Project\\Markdown\\fixtures\\generated\\100kb.md",
+    "D:\\Project\\Markdown\\fixtures\\generated\\1mb.md",
+    "D:\\Project\\Markdown\\fixtures\\generated\\10mb.md",
+    "D:\\Project\\Markdown\\fixtures\\generated\\50mb.md"
+  ],
+  "mode": "performance"
+}
